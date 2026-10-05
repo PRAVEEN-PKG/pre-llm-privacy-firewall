@@ -1,4 +1,4 @@
-const SCAN_API_URL = "http://localhost:3001/api/scan";
+const SCAN_API_URL = "https://pre-llm-privacy-firewall.vercel.app/api/scan";
 
 document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("promptInput");
