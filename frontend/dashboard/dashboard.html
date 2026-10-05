@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | ShieldAI</title>
+    <meta name="description" content="Monitor privacy risk metrics, scan activity, and protection coverage across your AI workflow.">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar container">
+            <a href="../index.html" class="brand" aria-label="ShieldAI home page">
+                <span class="brand-icon">🛡️</span>
+                <span class="brand-text">
+                    <span class="brand-name">ShieldAI</span>
+                    <span class="brand-tagline">Privacy Firewall</span>
+                </span>
+            </a>
+
+            <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../how-it-works/how-it-works.html" class="nav-link">How It Works</a>
+                <a href="../features/features.html" class="nav-link">Features</a>
+                <a href="../scanner/scanner.html" class="nav-link">Scanner</a>
+                <a href="dashboard.html" class="nav-link active">Dashboard</a>
+                <a href="../history/history.html" class="nav-link">History</a>
+                <a href="../policies/policies.html" class="nav-link">Policies</a>
+                <a href="../documentation/documentation.html" class="nav-link">Documentation</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container narrow">
+                <span class="eyebrow">Security dashboard</span>
+                <h1>Risk overview across all scans</h1>
+            </div>
+        </section>
+
+        <section class="dashboard-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <article class="stat-card glass-card">
+                        <span class="stat-label">Total Scans</span>
+                        <strong id="totalScans">0</strong>
+                    </article>
+                    <article class="stat-card glass-card">
+                        <span class="stat-label">Protected Prompts</span>
+                        <strong id="protectedPrompts">0</strong>
+                    </article>
+                    <article class="stat-card glass-card">
+                        <span class="stat-label">Blocked Requests</span>
+                        <strong id="blockedRequests">0</strong>
+                    </article>
+                    <article class="stat-card glass-card">
+                        <span class="stat-label">Average Risk Score</span>
+                        <strong id="avgRiskScore">0</strong>
+                    </article>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="chart-card glass-card">
+                        <h3>Risk distribution</h3>
+                        <div class="bar-chart">
+                            <div class="bar-group">
+                                <label>Low</label>
+                                <div class="bar-track"><span id="lowBar" class="bar low"></span></div>
+                                <strong id="lowCount">0</strong>
+                            </div>
+                            <div class="bar-group">
+                                <label>Medium</label>
+                                <div class="bar-track"><span id="mediumBar" class="bar medium"></span></div>
+                                <strong id="mediumCount">0</strong>
+                            </div>
+                            <div class="bar-group">
+                                <label>High</label>
+                                <div class="bar-track"><span id="highBar" class="bar high"></span></div>
+                                <strong id="highCount">0</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-card glass-card">
+                        <h3>Recent activity</h3>
+                        <ul id="recentActivity" class="activity-list">
+                            <li>No recent activity.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="status-card glass-card">
+                    <h3>Security status</h3>
+                    <div class="status-row">
+                        <span class="status-dot"></span>
+                        <span id="securityStatus">Monitoring healthy</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span class="year"></span> ShieldAI. Privacy-first AI protection.</p>
+            <div class="footer-links">
+                <a href="../scanner/scanner.html">Scanner</a>
+                <a href="../documentation/documentation.html">Docs</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policies | ShieldAI</title>
+    <meta name="description" content="Review ShieldAI policy actions for data types such as names, emails, health data, passwords, and financial records.">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="policies.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar container">
+            <a href="../index.html" class="brand" aria-label="ShieldAI home page">
+                <span class="brand-icon">🛡️</span>
+                <span class="brand-text">
+                    <span class="brand-name">ShieldAI</span>
+                    <span class="brand-tagline">Privacy Firewall</span>
+                </span>
+            </a>
+
+            <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../how-it-works/how-it-works.html" class="nav-link">How It Works</a>
+                <a href="../features/features.html" class="nav-link">Features</a>
+                <a href="../scanner/scanner.html" class="nav-link">Scanner</a>
+                <a href="../dashboard/dashboard.html" class="nav-link">Dashboard</a>
+                <a href="../history/history.html" class="nav-link">History</a>
+                <a href="policies.html" class="nav-link active">Policies</a>
+                <a href="../documentation/documentation.html" class="nav-link">Documentation</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container narrow">
+                <span class="eyebrow">Policy matrix</span>
+                <h1>Default protection rules for sensitive data</h1>
+                <p>ShieldAI applies a clear policy action for each type of detected content to reduce exposure and maintain compliance.</p>
+            </div>
+        </section>
+
+        <section class="policies-section">
+            <div class="container policy-grid">
+                <article class="policy-card glass-card">
+                    <div class="policy-header">
+                        <span class="policy-type">EMAIL</span>
+                        <span class="action action-mask">MASK</span>
+                    </div>
+                    <p>Email addresses are replaced with a neutral placeholder while preserving message structure.</p>
+                </article>
+
+                <article class="policy-card glass-card">
+                    <div class="policy-header">
+                        <span class="policy-type">PHONE</span>
+                        <span class="action action-mask">MASK</span>
+                    </div>
+                    <p>Phone numbers are hidden during AI processing to prevent contact leakage or social engineering risks.</p>
+                </article>
+
+                <article class="policy-card glass-card">
+                    <div class="policy-header">
+                        <span class="policy-type">NAME</span>
+                        <span class="action action-mask">MASK</span>
+                    </div>
+                    <p>Personal names are sanitized before leaving the organization to maintain privacy.</p>
+                </article>
+
+                <article class="policy-card glass-card">
+                    <div class="policy-header">
+                        <span class="policy-type">PASSWORD</span>
+                        <span class="action action-block">BLOCK</span>
+                    </div>
+                    <p>Passwords are blocked immediately because they represent direct account compromise risk.</p>
+                </article>
+
+                <article class="policy-card glass-card">
+                    <div class="policy-header">
+                        <span class="policy-type">API KEY</span>
+                        <span class="action action-block">BLOCK</span>
+                    </div>
+                    <p>API keys and tokens are rejected to prevent unauthorized access to backend services.</p>
+                </article>
+
+                <article class="policy-card glass-card">
+                    <div class="policy-header">
+                        <span class="policy-type">FINANCIAL</span>
+                        <span class="action action-redact">REDACT</span>
+                    </div>
+                    <p>Cards, account numbers, and banking data are redacted before being sent to external models.</p>
+                </article>
+
+                <article class="policy-card glass-card">
+                    <div class="policy-header">
+                        <span class="policy-type">HEALTH</span>
+                        <span class="action action-mask">MASK</span>
+                    </div>
+                    <p>Medical or health-related data is masked to support compliance with privacy regulations.</p>
+                </article>
+
+                <article class="policy-card glass-card">
+                    <div class="policy-header">
+                        <span class="policy-type">CONFIDENTIAL</span>
+                        <span class="action action-block">BLOCK</span>
+                    </div>
+                    <p>Highly sensitive or internal-only information is prevented from leaving secure systems.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span class="year"></span> ShieldAI. Privacy-first AI protection.</p>
+            <div class="footer-links">
+                <a href="../scanner/scanner.html">Scanner</a>
+                <a href="../documentation/documentation.html">Docs</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="policies.js"></script>
+</body>
+</html>

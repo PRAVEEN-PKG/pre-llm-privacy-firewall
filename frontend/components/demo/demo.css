@@ -1,0 +1,787 @@
+/* =====================================================
+   SHIELDAI - DEMO SECTION CSS
+===================================================== */
+
+.demo {
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* =========================================
+   DEMO HEADING
+========================================= */
+
+.demo-heading {
+    max-width: 850px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.demo-heading .badge {
+    margin-bottom: 20px;
+}
+
+.demo-heading .section-title {
+    margin-bottom: 20px;
+}
+
+
+/* =========================================
+   DEMO CARD
+========================================= */
+
+.demo-card {
+    display: grid;
+
+    grid-template-columns: 1fr 70px 1fr;
+
+    align-items: stretch;
+
+    gap: 20px;
+
+    padding: 24px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15, 23, 42, 0.90),
+            rgba(8, 18, 32, 0.85)
+        );
+
+    border: 1px solid
+        rgba(56, 189, 248, 0.12);
+
+    box-shadow:
+        0 25px 60px
+        rgba(0, 0, 0, 0.30);
+}
+
+
+/* =========================================
+   INPUT / RESULT AREA
+========================================= */
+
+.demo-input-area,
+.demo-result-area {
+    min-width: 0;
+
+    padding: 24px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(2, 8, 23, 0.55);
+
+    border: 1px solid
+        rgba(148, 163, 184, 0.10);
+}
+
+
+/* =========================================
+   PANEL HEADER
+========================================= */
+
+.demo-panel-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.demo-panel-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #38bdf8;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+}
+
+.demo-panel-header h3 {
+    color: #f8fafc;
+
+    font-size: 19px;
+
+    font-weight: 700;
+}
+
+.demo-step {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
+
+    border-radius: 8px;
+
+    background:
+        rgba(14, 165, 233, 0.08);
+
+    border: 1px solid
+        rgba(56, 189, 248, 0.12);
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   TEXTAREA
+========================================= */
+
+.demo-textarea {
+    width: 100%;
+
+    min-height: 170px;
+
+    resize: vertical;
+
+    padding: 16px;
+
+    border: 1px solid
+        rgba(148, 163, 184, 0.14);
+
+    border-radius: 12px;
+
+    outline: none;
+
+    background:
+        rgba(15, 23, 42, 0.65);
+
+    color: #e2e8f0;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.demo-textarea::placeholder {
+    color: #64748b;
+}
+
+.demo-textarea:focus {
+    border-color:
+        rgba(56, 189, 248, 0.45);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(14, 165, 233, 0.08);
+}
+
+
+/* =========================================
+   INPUT INFO
+========================================= */
+
+.demo-input-info {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 10px;
+
+    color: #64748b;
+
+    font-size: 11px;
+}
+
+#demoCharCount {
+    flex-shrink: 0;
+
+    color: #94a3b8;
+}
+
+
+/* =========================================
+   DEMO ACTIONS
+========================================= */
+
+.demo-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.demo-actions .primary-button {
+    flex: 1;
+}
+
+.demo-actions .secondary-button {
+    min-width: 90px;
+}
+
+
+/* =========================================
+   CENTER ARROW
+========================================= */
+
+.demo-arrow {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.demo-arrow-line {
+    width: 1px;
+
+    height: 45px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(56, 189, 248, 0.35),
+            transparent
+        );
+}
+
+.demo-arrow-circle {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(14, 165, 233, 0.10);
+
+    border: 1px solid
+        rgba(56, 189, 248, 0.22);
+
+    color: #38bdf8;
+
+    font-size: 20px;
+
+    animation:
+        demoArrowPulse 2s ease-in-out infinite;
+}
+
+@keyframes demoArrowPulse {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+}
+
+
+/* =========================================
+   PLACEHOLDER
+========================================= */
+
+.demo-placeholder {
+    min-height: 330px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px;
+}
+
+.demo-placeholder-icon {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 18px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(14, 165, 233, 0.08);
+
+    border: 1px solid
+        rgba(56, 189, 248, 0.15);
+
+    font-size: 28px;
+}
+
+.demo-placeholder h4 {
+    margin-bottom: 7px;
+
+    color: #e2e8f0;
+
+    font-size: 17px;
+}
+
+.demo-placeholder p {
+    max-width: 260px;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   RESULT
+========================================= */
+
+.demo-result {
+    min-height: 330px;
+}
+
+.demo-result.hidden {
+    display: none;
+}
+
+
+/* =========================================
+   RESULT HEADER
+========================================= */
+
+.demo-result-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.demo-result-header span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #64748b;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.demo-result-header strong {
+    color: #4ade80;
+
+    font-size: 14px;
+}
+
+.demo-risk-badge {
+    padding: 6px 9px;
+
+    border-radius: 6px;
+
+    background:
+        rgba(34, 197, 94, 0.08);
+
+    border: 1px solid
+        rgba(34, 197, 94, 0.18);
+
+    color: #4ade80;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   RISK
+========================================= */
+
+.demo-risk {
+    margin-bottom: 20px;
+}
+
+.demo-risk-info {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 8px;
+}
+
+.demo-risk-info span {
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+.demo-risk-info strong {
+    color: #e2e8f0;
+
+    font-size: 13px;
+}
+
+.demo-risk-bar {
+    width: 100%;
+
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background:
+        rgba(148, 163, 184, 0.10);
+}
+
+.demo-risk-progress {
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #22c55e,
+            #eab308,
+            #ef4444
+        );
+
+    transition:
+        width 0.6s ease;
+}
+
+
+/* =========================================
+   DETECTED DATA
+========================================= */
+
+.demo-detected {
+    margin-bottom: 18px;
+}
+
+.demo-small-title {
+    margin-bottom: 9px;
+
+    color: #64748b;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.demo-detected-list {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+}
+
+.demo-detected-item {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 9px;
+
+    border-radius: 6px;
+
+    background:
+        rgba(239, 68, 68, 0.07);
+
+    border: 1px solid
+        rgba(239, 68, 68, 0.14);
+
+    color: #fca5a5;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+.demo-no-data {
+    color: #64748b;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   SAFE PROMPT
+========================================= */
+
+.demo-safe-prompt {
+    padding: 13px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(34, 197, 94, 0.05);
+
+    border: 1px solid
+        rgba(34, 197, 94, 0.12);
+}
+
+.demo-safe-prompt .demo-small-title {
+    color: #4ade80;
+}
+
+.demo-safe-prompt p {
+    color: #cbd5e1;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    word-break: break-word;
+}
+
+
+/* =========================================
+   SECURITY MESSAGE
+========================================= */
+
+.demo-security-message {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    max-width: 850px;
+
+    margin: 35px auto 0;
+
+    padding: 18px 22px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(14, 165, 233, 0.04);
+
+    border: 1px solid
+        rgba(56, 189, 248, 0.10);
+}
+
+.demo-security-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(14, 165, 233, 0.08);
+
+    font-size: 20px;
+}
+
+.demo-security-message strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #e2e8f0;
+
+    font-size: 14px;
+}
+
+.demo-security-message p {
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 950px) {
+
+    .demo-card {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .demo-arrow {
+        flex-direction: row;
+
+        height: 45px;
+    }
+
+    .demo-arrow-line {
+        width: 45px;
+        height: 1px;
+
+        background:
+            linear-gradient(
+                to right,
+                transparent,
+                rgba(56, 189, 248, 0.35),
+                transparent
+            );
+    }
+
+    .demo-arrow-circle {
+        transform: rotate(90deg);
+    }
+
+    @keyframes demoArrowPulse {
+
+        0%,
+        100% {
+            transform: rotate(90deg) translateX(0);
+        }
+
+        50% {
+            transform: rotate(90deg) translateX(5px);
+        }
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .demo-heading {
+        margin-bottom: 40px;
+    }
+
+    .demo-card {
+        padding: 14px;
+
+        border-radius: 17px;
+    }
+
+    .demo-input-area,
+    .demo-result-area {
+        padding: 18px;
+    }
+
+    .demo-panel-header h3 {
+        font-size: 17px;
+    }
+
+    .demo-textarea {
+        min-height: 145px;
+
+        font-size: 13px;
+    }
+
+    .demo-input-info {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 4px;
+    }
+
+    .demo-actions {
+        flex-direction: column;
+    }
+
+    .demo-actions .secondary-button {
+        width: 100%;
+    }
+
+    .demo-security-message {
+        align-items: flex-start;
+
+        padding: 16px;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+    .demo-card {
+        padding: 10px;
+    }
+
+    .demo-input-area,
+    .demo-result-area {
+        padding: 15px;
+    }
+
+    .demo-panel-header h3 {
+        font-size: 16px;
+    }
+
+    .demo-placeholder {
+        min-height: 280px;
+
+        padding: 20px;
+    }
+
+}

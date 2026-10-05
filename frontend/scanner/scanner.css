@@ -1,0 +1,140 @@
+.scanner-hero {
+    padding-top: 110px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.scanner-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 24px;
+    align-items: start;
+    padding-bottom: 80px;
+}
+
+.glass-card {
+    background: rgba(15, 23, 42, 0.72);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 22px;
+    box-shadow: 0 24px 36px rgba(2, 6, 23, 0.25);
+}
+
+.scanner-panel,
+.result-panel {
+    padding: 24px;
+}
+
+.input-label {
+    display: block;
+    margin-bottom: 14px;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7dd3fc;
+    font-weight: 700;
+}
+
+#promptInput {
+    width: 100%;
+    min-height: 220px;
+    resize: vertical;
+    padding: 18px 20px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 16px;
+    background: rgba(2, 6, 23, 0.4);
+    color: #f8fafc;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+#promptInput:focus {
+    outline: 2px solid rgba(56, 189, 248, 0.4);
+    border-color: rgba(56, 189, 248, 0.5);
+}
+
+.action-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.primary-btn,
+.secondary-btn {
+    appearance: none;
+    border: none;
+    border-radius: 12px;
+    padding: 0 22px;
+    min-height: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary-btn {
+    background: linear-gradient(135deg, #0ea5e9, #2563eb);
+    color: #fff;
+}
+
+.secondary-btn {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    color: #e2e8f0;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+    transform: translateY(-2px);
+}
+
+.result-panel h2 {
+    margin-bottom: 18px;
+    font-size: 1.7rem;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.result-item span {
+    color: #cbd5e1;
+}
+
+.result-item strong {
+    color: #f8fafc;
+    text-align: right;
+}
+
+.safe-output {
+    display: block;
+    padding-top: 18px;
+}
+
+.safe-output p {
+    margin-top: 10px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: rgba(2, 6, 23, 0.5);
+    color: #7dd3fc;
+    line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+    .scanner-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .action-row {
+        flex-direction: column;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+        width: 100%;
+    }
+}

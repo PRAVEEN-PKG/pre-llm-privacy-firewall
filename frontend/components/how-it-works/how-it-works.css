@@ -1,0 +1,596 @@
+/* =====================================================
+   SHIELDAI - HOW IT WORKS
+===================================================== */
+
+
+/* =========================================
+   SECTION
+========================================= */
+
+.how-it-works {
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.how-heading {
+    text-align: center;
+    margin-bottom: 65px;
+}
+
+.how-heading .badge {
+    margin-bottom: 20px;
+}
+
+
+/* =========================================
+   SECURITY FLOW
+========================================= */
+
+.security-flow {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 12px;
+}
+
+
+/* =========================================
+   FLOW STEP
+========================================= */
+
+.flow-step {
+    position: relative;
+
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 25px 20px;
+
+    border: 1px solid rgba(148, 163, 184, 0.12);
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15, 23, 42, 0.75),
+            rgba(8, 18, 32, 0.65)
+        );
+
+    text-align: center;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.flow-step:hover {
+    transform: translateY(-7px);
+
+    border-color:
+        rgba(56, 189, 248, 0.30);
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================
+   STEP NUMBER
+========================================= */
+
+.step-number {
+    position: absolute;
+
+    top: 14px;
+    right: 15px;
+
+    color: #334155;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================
+   STEP ICON
+========================================= */
+
+.step-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 18px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(14, 165, 233, 0.08);
+
+    border: 1px solid
+        rgba(56, 189, 248, 0.15);
+
+    font-size: 25px;
+}
+
+
+/* =========================================
+   STEP TITLE
+========================================= */
+
+.flow-step h3 {
+    margin-bottom: 10px;
+
+    color: #f8fafc;
+
+    font-size: 17px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   STEP DESCRIPTION
+========================================= */
+
+.flow-step p {
+    min-height: 95px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    line-height: 1.75;
+}
+
+
+/* =========================================
+   STEP EXAMPLE
+========================================= */
+
+.step-example {
+    margin-top: 17px;
+
+    padding: 9px 8px;
+
+    border-radius: 8px;
+
+    background:
+        rgba(148, 163, 184, 0.05);
+
+    border: 1px solid
+        rgba(148, 163, 184, 0.08);
+
+    color: #cbd5e1;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+.step-example span {
+    color: #f87171;
+
+    font-family: monospace;
+}
+
+
+/* =========================================
+   DETECTION EXAMPLE
+========================================= */
+
+.detection-example {
+    background:
+        rgba(245, 158, 11, 0.07);
+
+    border-color:
+        rgba(245, 158, 11, 0.13);
+
+    color: #fbbf24;
+}
+
+
+/* =========================================
+   RISK EXAMPLE
+========================================= */
+
+.risk-example {
+    background:
+        rgba(245, 158, 11, 0.07);
+
+    border-color:
+        rgba(245, 158, 11, 0.13);
+
+    color: #fbbf24;
+}
+
+.risk-example strong {
+    font-size: 12px;
+}
+
+
+/* =========================================
+   PROTECT EXAMPLE
+========================================= */
+
+.protect-example {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    background:
+        rgba(34, 197, 94, 0.07);
+
+    border-color:
+        rgba(34, 197, 94, 0.13);
+
+    color: #4ade80;
+}
+
+.protect-example span {
+    padding: 2px 5px;
+
+    border-radius: 4px;
+
+    background:
+        rgba(56, 189, 248, 0.08);
+
+    color: #38bdf8;
+}
+
+
+/* =========================================
+   SAFE EXAMPLE
+========================================= */
+
+.safe-example {
+    background:
+        rgba(34, 197, 94, 0.07);
+
+    border-color:
+        rgba(34, 197, 94, 0.13);
+
+    color: #4ade80;
+}
+
+
+/* =========================================
+   FLOW ARROW
+========================================= */
+
+.security-flow-arrow {
+    flex-shrink: 0;
+
+    align-self: center;
+
+    color: #38bdf8;
+
+    font-size: 22px;
+
+    font-weight: 600;
+
+    animation:
+        flowArrowMove 1.8s ease-in-out infinite;
+}
+
+
+/* =========================================
+   SECURITY RULE
+========================================= */
+
+.security-rule {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    max-width: 850px;
+
+    margin: 55px auto 0;
+
+    padding: 22px 25px;
+
+    border: 1px solid
+        rgba(56, 189, 248, 0.15);
+
+    border-radius: 15px;
+
+    background:
+        rgba(14, 165, 233, 0.04);
+}
+
+
+/* =========================================
+   RULE ICON
+========================================= */
+
+.rule-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(14, 165, 233, 0.09);
+
+    border: 1px solid
+        rgba(56, 189, 248, 0.15);
+
+    font-size: 21px;
+}
+
+
+/* =========================================
+   RULE CONTENT
+========================================= */
+
+.rule-content {
+    flex: 1;
+}
+
+.rule-content h3 {
+    margin-bottom: 4px;
+
+    color: #e2e8f0;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+.rule-content p {
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   RULE STATUS
+========================================= */
+
+.rule-status {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 7px 10px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(34, 197, 94, 0.07);
+
+    border: 1px solid
+        rgba(34, 197, 94, 0.12);
+
+    color: #86efac;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   SIMPLE FLOW
+========================================= */
+
+.simple-flow {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 35px;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+.simple-flow span {
+    padding: 7px 11px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(15, 23, 42, 0.70);
+
+    border: 1px solid
+        rgba(148, 163, 184, 0.09);
+
+    color: #94a3b8;
+}
+
+.simple-flow span:nth-of-type(2),
+.simple-flow span:nth-of-type(4) {
+    color: #38bdf8;
+
+    border-color:
+        rgba(56, 189, 248, 0.15);
+}
+
+.simple-flow span:last-of-type {
+    color: #4ade80;
+
+    border-color:
+        rgba(34, 197, 94, 0.15);
+}
+
+.simple-flow b {
+    color: #475569;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+@keyframes flowArrowMove {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(4px);
+    }
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .security-flow {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 18px;
+    }
+
+    .security-flow-arrow {
+        display: none;
+    }
+
+    .flow-step {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .how-heading {
+        margin-bottom: 45px;
+    }
+
+    .security-flow {
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+    }
+
+    .flow-step {
+        padding: 24px 20px;
+    }
+
+    .flow-step p {
+        min-height: auto;
+    }
+
+    .security-rule {
+        align-items: flex-start;
+
+        padding: 20px;
+
+        gap: 13px;
+    }
+
+    .rule-content p {
+        line-height: 1.6;
+    }
+
+    .rule-status {
+        display: none;
+    }
+
+    .simple-flow {
+        gap: 7px;
+
+        line-height: 1.8;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+
+    .step-icon {
+        width: 50px;
+        height: 50px;
+
+        font-size: 22px;
+    }
+
+    .flow-step h3 {
+        font-size: 16px;
+    }
+
+    .flow-step p {
+        font-size: 11px;
+    }
+
+    .security-rule {
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+    }
+
+    .simple-flow {
+        flex-direction: column;
+    }
+
+    .simple-flow b {
+        transform: rotate(90deg);
+    }
+
+}

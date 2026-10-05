@@ -1,0 +1,316 @@
+<!-- =========================================
+     SHIELDAI - DEMO SECTION
+========================================= -->
+
+<section
+    class="demo section"
+    id="demo">
+
+    <div class="container">
+
+        <!-- Section Heading -->
+
+        <div class="demo-heading">
+
+            <span class="badge">
+
+                <span class="status-dot"></span>
+
+                Live Security Demo
+
+            </span>
+
+            <h2 class="section-title">
+
+                See ShieldAI
+                <span class="text-cyan">
+                    Protect Your Prompt
+                </span>
+
+            </h2>
+
+            <p class="section-description">
+
+                Enter a sample prompt and see how ShieldAI
+                detects sensitive information and prepares
+                a safer version before it reaches an AI model.
+
+            </p>
+
+        </div>
+
+
+        <!-- Demo Card -->
+
+        <div class="demo-card">
+
+
+            <!-- LEFT SIDE -->
+
+            <div class="demo-input-area">
+
+                <div class="demo-panel-header">
+
+                    <div>
+
+                        <span class="demo-panel-label">
+                            YOUR PROMPT
+                        </span>
+
+                        <h3>
+                            Enter sensitive information
+                        </h3>
+
+                    </div>
+
+                    <span class="demo-step">
+                        01
+                    </span>
+
+                </div>
+
+
+                <textarea
+                    id="demoPrompt"
+                    class="demo-textarea"
+                    placeholder="Example: My name is Ajay Kumar and my email is ajay@gmail.com"
+                    rows="7"></textarea>
+
+
+                <div class="demo-input-info">
+
+                    <span>
+                        Try a sample prompt with an email,
+                        phone number or name.
+                    </span>
+
+                    <span id="demoCharCount">
+                        0 characters
+                    </span>
+
+                </div>
+
+
+                <div class="demo-actions">
+
+                    <button
+                        type="button"
+                        class="primary-button"
+                        id="demoScanButton">
+
+                        <span>
+                            🛡️ Scan & Protect
+                        </span>
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="demoClearButton">
+
+                        Clear
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- CENTER ARROW -->
+
+            <div class="demo-arrow">
+
+                <div class="demo-arrow-line"></div>
+
+                <div class="demo-arrow-circle">
+                    →
+                </div>
+
+                <div class="demo-arrow-line"></div>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+
+            <div class="demo-result-area">
+
+                <div class="demo-panel-header">
+
+                    <div>
+
+                        <span class="demo-panel-label">
+                            SHIELDAI RESULT
+                        </span>
+
+                        <h3>
+                            Protected Prompt
+                        </h3>
+
+                    </div>
+
+                    <span class="demo-step">
+                        02
+                    </span>
+
+                </div>
+
+
+                <!-- Initial Result -->
+
+                <div
+                    class="demo-placeholder"
+                    id="demoPlaceholder">
+
+                    <div class="demo-placeholder-icon">
+                        🛡️
+                    </div>
+
+                    <h4>
+                        Ready to Protect
+                    </h4>
+
+                    <p>
+                        Enter a prompt and click
+                        "Scan & Protect".
+                    </p>
+
+                </div>
+
+
+                <!-- Result Content -->
+
+                <div
+                    class="demo-result hidden"
+                    id="demoResult">
+
+
+                    <!-- Detection Summary -->
+
+                    <div class="demo-result-header">
+
+                        <div>
+
+                            <span>
+                                DETECTION STATUS
+                            </span>
+
+                            <strong id="demoDetectionStatus">
+                                Protected
+                            </strong>
+
+                        </div>
+
+                        <div
+                            class="demo-risk-badge"
+                            id="demoRiskBadge">
+
+                            LOW RISK
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Risk Score -->
+
+                    <div class="demo-risk">
+
+                        <div class="demo-risk-info">
+
+                            <span>
+                                Risk Score
+                            </span>
+
+                            <strong>
+                                <span id="demoRiskScore">
+                                    0
+                                </span>/100
+                            </strong>
+
+                        </div>
+
+                        <div class="demo-risk-bar">
+
+                            <div
+                                class="demo-risk-progress"
+                                id="demoRiskProgress">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Detected Items -->
+
+                    <div class="demo-detected">
+
+                        <div class="demo-small-title">
+                            DETECTED DATA
+                        </div>
+
+                        <div
+                            class="demo-detected-list"
+                            id="demoDetectedList">
+
+                            <span class="demo-no-data">
+                                No sensitive data detected.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Safe Prompt -->
+
+                    <div class="demo-safe-prompt">
+
+                        <div class="demo-small-title">
+                            SAFE PROMPT
+                        </div>
+
+                        <p id="demoSafePrompt">
+                            Your protected prompt will appear here.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Security Message -->
+
+        <div class="demo-security-message">
+
+            <div class="demo-security-icon">
+                🔐
+            </div>
+
+            <div>
+
+                <strong>
+                    Raw data stays behind the firewall.
+                </strong>
+
+                <p>
+                    ShieldAI prepares a sanitized prompt
+                    before sending information to an
+                    external AI model.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

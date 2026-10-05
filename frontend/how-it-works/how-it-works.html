@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works | ShieldAI</title>
+    <meta name="description" content="Learn how ShieldAI detects and blocks sensitive data before it reaches external AI tools.">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="how-it-works.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar container">
+            <a href="../index.html" class="brand" aria-label="ShieldAI home page">
+                <span class="brand-icon">🛡️</span>
+                <span class="brand-text">
+                    <span class="brand-name">ShieldAI</span>
+                    <span class="brand-tagline">Privacy Firewall</span>
+                </span>
+            </a>
+
+            <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="how-it-works.html" class="nav-link active">How It Works</a>
+                <a href="../features/features.html" class="nav-link">Features</a>
+                <a href="../scanner/scanner.html" class="nav-link">Scanner</a>
+                <a href="../dashboard/dashboard.html" class="nav-link">Dashboard</a>
+                <a href="../history/history.html" class="nav-link">History</a>
+                <a href="../policies/policies.html" class="nav-link">Policies</a>
+                <a href="../documentation/documentation.html" class="nav-link">Documentation</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container narrow">
+                <span class="eyebrow">How it works</span>
+                <h1>How ShieldAI protects your prompts before they leave your system</h1>
+                <p>ShieldAI works as a privacy gate between user input and external AI models. It inspects, classifies, and sanitizes risky content before it reaches any LLM.</p>
+            </div>
+        </section>
+
+        <section class="flow-section">
+            <div class="container">
+                <div class="flow-step">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>User Prompt</h3>
+                        <p>A user enters sensitive information such as a name, email, API key, or confidential business data into an AI workflow.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>ShieldAI</h3>
+                        <p>The system receives the input and runs a detection layer to identify risky patterns, personally identifiable information, and policy violations.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Detection</h3>
+                        <p>Pattern checks, context analysis, and rule logic identify PII, secrets, health data, passwords, and confidential records.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h3>Risk Scoring</h3>
+                        <p>Every prompt is assigned a risk score based on sensitivity and impact so security teams can quickly prioritize incidents.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step">
+                    <div class="step-number">05</div>
+                    <div class="step-content">
+                        <h3>Protection</h3>
+                        <p>The policy engine decides whether to mask, redact, block, or allow the content according to company rules and compliance requirements.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step">
+                    <div class="step-number">06</div>
+                    <div class="step-content">
+                        <h3>Safe Prompt</h3>
+                        <p>Risky content is converted to a sanitized version, such as replacing names or emails with placeholders while preserving the prompt structure.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow">↓</div>
+
+                <div class="flow-step">
+                    <div class="step-number">07</div>
+                    <div class="step-content">
+                        <h3>External AI</h3>
+                        <p>Only the safe prompt reaches the LLM, keeping private information out of AI training and third-party exposure.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span class="year"></span> ShieldAI. Privacy-first AI protection.</p>
+            <div class="footer-links">
+                <a href="../scanner/scanner.html">Scanner</a>
+                <a href="../documentation/documentation.html">Docs</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="how-it-works.js"></script>
+</body>
+</html>

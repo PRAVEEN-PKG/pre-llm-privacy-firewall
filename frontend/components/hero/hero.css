@@ -1,0 +1,1142 @@
+/* =====================================================
+   SHIELDAI HERO SECTION
+   Pre-LLM Privacy Firewall
+===================================================== */
+
+
+/* =========================================
+   HERO MAIN SECTION
+========================================= */
+
+.hero {
+    position: relative;
+
+    width: 100%;
+    min-height: calc(100vh - 76px);
+
+    display: flex;
+    align-items: center;
+
+    padding: 80px 0 100px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   HERO CONTAINER
+========================================= */
+
+.hero-container {
+    position: relative;
+
+    width: 90%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    align-items: center;
+
+    gap: 70px;
+
+    z-index: 2;
+}
+
+
+/* =========================================
+   LEFT HERO CONTENT
+========================================= */
+
+.hero-content {
+    width: 100%;
+}
+
+
+/* =========================================
+   HERO BADGE
+========================================= */
+
+.hero-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 14px;
+
+    margin-bottom: 24px;
+
+    border: 1px solid rgba(56, 189, 248, 0.20);
+
+    border-radius: 999px;
+
+    background: rgba(14, 165, 233, 0.06);
+
+    color: #7dd3fc;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.3px;
+}
+
+.hero-badge-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    box-shadow:
+        0 0 10px rgba(34, 197, 94, 0.7);
+
+    animation: heroPulse 2s infinite;
+}
+
+
+/* =========================================
+   HERO TITLE
+========================================= */
+
+.hero-title {
+    max-width: 650px;
+
+    margin-bottom: 24px;
+
+    font-size: 58px;
+
+    font-weight: 800;
+
+    line-height: 1.08;
+
+    letter-spacing: -1.8px;
+
+    color: #ffffff;
+}
+
+.hero-highlight {
+    display: inline-block;
+
+    color: #38bdf8;
+
+    position: relative;
+}
+
+.hero-highlight::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -5px;
+
+    width: 100%;
+    height: 3px;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        90deg,
+        #0ea5e9,
+        #2563eb
+    );
+
+    opacity: 0.8;
+}
+
+
+/* =========================================
+   HERO DESCRIPTION
+========================================= */
+
+.hero-description {
+    max-width: 570px;
+
+    margin-bottom: 32px;
+
+    color: #94a3b8;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================
+   HERO BUTTONS
+========================================= */
+
+.hero-buttons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 32px;
+}
+
+
+/* =========================================
+   PRIMARY HERO BUTTON
+========================================= */
+
+.hero-primary-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 14px 22px;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #0ea5e9,
+        #2563eb
+    );
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 10px 30px rgba(14, 165, 233, 0.15);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.hero-primary-button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 35px rgba(14, 165, 233, 0.30);
+}
+
+.hero-button-arrow {
+    font-size: 18px;
+
+    line-height: 1;
+
+    transition:
+        transform 0.25s ease;
+}
+
+.hero-primary-button:hover
+.hero-button-arrow {
+    transform: translateX(4px);
+}
+
+
+/* =========================================
+   SECONDARY HERO BUTTON
+========================================= */
+
+.hero-secondary-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    padding: 13px 20px;
+
+    border: 1px solid rgba(148, 163, 184, 0.18);
+
+    border-radius: 10px;
+
+    background: rgba(15, 23, 42, 0.50);
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.hero-secondary-button:hover {
+    background: rgba(14, 165, 233, 0.08);
+
+    border-color: rgba(56, 189, 248, 0.35);
+
+    transform: translateY(-3px);
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   HERO TRUST ITEMS
+========================================= */
+
+.hero-trust {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 20px;
+}
+
+.trust-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+.trust-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 18px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: rgba(34, 197, 94, 0.10);
+
+    color: #22c55e;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   HERO VISUAL
+========================================= */
+
+.hero-visual {
+    position: relative;
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================================
+   HERO GLOW
+========================================= */
+
+.hero-glow {
+    position: absolute;
+
+    width: 430px;
+    height: 430px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(14, 165, 233, 0.16),
+        transparent 65%
+    );
+
+    filter: blur(15px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   SECURITY CARD
+========================================= */
+
+.security-card {
+    position: relative;
+
+    width: 100%;
+
+    max-width: 520px;
+
+    padding: 24px;
+
+    border: 1px solid rgba(56, 189, 248, 0.15);
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15, 23, 42, 0.94),
+            rgba(8, 18, 32, 0.94)
+        );
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.40),
+        0 0 50px rgba(14, 165, 233, 0.06);
+
+    backdrop-filter: blur(18px);
+
+    -webkit-backdrop-filter: blur(18px);
+
+    animation: securityFloat 5s ease-in-out infinite;
+}
+
+
+/* =========================================
+   SECURITY CARD HEADER
+========================================= */
+
+.security-card-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.security-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.security-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: rgba(14, 165, 233, 0.10);
+
+    border: 1px solid rgba(56, 189, 248, 0.14);
+
+    font-size: 20px;
+}
+
+.security-title h3 {
+    margin-bottom: 3px;
+
+    color: #f8fafc;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+.security-title span {
+    color: #64748b;
+
+    font-size: 10px;
+}
+
+.firewall-status {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 9px;
+
+    border-radius: 999px;
+
+    background: rgba(34, 197, 94, 0.07);
+
+    border: 1px solid rgba(34, 197, 94, 0.12);
+
+    color: #86efac;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.security-divider {
+    width: 100%;
+    height: 1px;
+
+    margin-bottom: 18px;
+
+    background: rgba(148, 163, 184, 0.08);
+}
+
+
+/* =========================================
+   PROMPT BOX
+========================================= */
+
+.prompt-box {
+    padding: 15px;
+
+    border: 1px solid rgba(239, 68, 68, 0.13);
+
+    border-radius: 12px;
+
+    background: rgba(127, 29, 29, 0.08);
+}
+
+.prompt-label {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+    color: #64748b;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.8px;
+}
+
+.danger-label {
+    color: #f87171;
+}
+
+.prompt-box p {
+    color: #cbd5e1;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+.prompt-box strong {
+    color: #fca5a5;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   DETECTION ARROW
+========================================= */
+
+.detection-arrow {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    height: 42px;
+}
+
+.arrow-line {
+    width: 30px;
+    height: 1px;
+
+    background: rgba(56, 189, 248, 0.15);
+}
+
+.arrow-circle {
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(14, 165, 233, 0.08);
+
+    border: 1px solid rgba(56, 189, 248, 0.16);
+
+    color: #38bdf8;
+
+    font-size: 12px;
+
+    animation: arrowMove 1.8s ease-in-out infinite;
+}
+
+
+/* =========================================
+   DETECTION BOX
+========================================= */
+
+.detection-box {
+    padding: 15px;
+
+    border: 1px solid rgba(245, 158, 11, 0.12);
+
+    border-radius: 12px;
+
+    background: rgba(120, 53, 15, 0.07);
+}
+
+.detection-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 12px;
+
+    color: #94a3b8;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.8px;
+}
+
+.detected-label {
+    color: #fbbf24;
+}
+
+.detection-item {
+    display: grid;
+
+    grid-template-columns: 70px 1fr auto;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 9px 0;
+
+    border-top: 1px solid rgba(148, 163, 184, 0.06);
+}
+
+.detection-type {
+    color: #fbbf24;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+.detection-value {
+    color: #cbd5e1;
+
+    font-size: 11px;
+
+    font-family: monospace;
+}
+
+.detection-action {
+    padding: 4px 7px;
+
+    border-radius: 5px;
+
+    background: rgba(34, 197, 94, 0.08);
+
+    color: #4ade80;
+
+    font-size: 8px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   SAFE BOX
+========================================= */
+
+.safe-box {
+    margin-top: 14px;
+
+    padding: 15px;
+
+    border: 1px solid rgba(34, 197, 94, 0.14);
+
+    border-radius: 12px;
+
+    background: rgba(20, 83, 45, 0.07);
+}
+
+.safe-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+
+    color: #94a3b8;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.8px;
+}
+
+.safe-status {
+    color: #4ade80;
+}
+
+.safe-box p {
+    color: #cbd5e1;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+.safe-box p span {
+    display: inline-block;
+
+    padding: 1px 5px;
+
+    border-radius: 4px;
+
+    background: rgba(56, 189, 248, 0.08);
+
+    color: #38bdf8;
+
+    font-family: monospace;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   RISK SECTION
+========================================= */
+
+.risk-section {
+    margin-top: 18px;
+
+    padding-top: 16px;
+
+    border-top: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+.risk-info {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+.risk-info strong {
+    color: #fbbf24;
+
+    font-size: 12px;
+}
+
+.risk-bar {
+    width: 100%;
+    height: 6px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: rgba(148, 163, 184, 0.10);
+}
+
+.risk-progress {
+    width: 40%;
+    height: 100%;
+
+    border-radius: 999px;
+
+    background: linear-gradient(
+        90deg,
+        #22c55e,
+        #f59e0b
+    );
+
+    animation: riskGrow 1.5s ease-out;
+}
+
+.risk-level {
+    margin-top: 8px;
+
+    color: #fbbf24;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    text-align: right;
+
+    letter-spacing: 0.6px;
+}
+
+
+/* =========================================
+   HERO SCROLL
+========================================= */
+
+.hero-scroll {
+    position: absolute;
+
+    bottom: 25px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: #475569;
+
+    font-size: 10px;
+
+    z-index: 3;
+}
+
+.scroll-arrow {
+    color: #38bdf8;
+
+    font-size: 15px;
+
+    animation: scrollBounce 1.8s ease-in-out infinite;
+}
+
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes heroPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 8px rgba(34, 197, 94, 0.4);
+    }
+
+    50% {
+        box-shadow:
+            0 0 18px rgba(34, 197, 94, 0.9);
+    }
+}
+
+
+@keyframes securityFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+
+@keyframes arrowMove {
+
+    0%,
+    100% {
+        transform: translateY(-2px);
+    }
+
+    50% {
+        transform: translateY(3px);
+    }
+}
+
+
+@keyframes riskGrow {
+
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 40%;
+    }
+}
+
+
+@keyframes scrollBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(6px);
+    }
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1050px) {
+
+    .hero-container {
+        gap: 40px;
+    }
+
+    .hero-title {
+        font-size: 48px;
+    }
+
+    .hero-description {
+        font-size: 16px;
+    }
+
+    .security-card {
+        max-width: 470px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE / SMALL TABLET
+========================================= */
+
+@media (max-width: 800px) {
+
+    .hero {
+        min-height: auto;
+
+        padding: 70px 0 90px;
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr;
+
+        gap: 55px;
+
+        width: 92%;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-badge {
+        margin-bottom: 20px;
+    }
+
+    .hero-title {
+        max-width: 700px;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        font-size: 45px;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+
+        font-size: 15px;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-trust {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        width: 100%;
+    }
+
+    .security-card {
+        max-width: 560px;
+    }
+
+    .hero-scroll {
+        display: none;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .hero {
+        padding: 55px 0 70px;
+    }
+
+    .hero-container {
+        gap: 45px;
+    }
+
+    .hero-title {
+        font-size: 38px;
+
+        letter-spacing: -1px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .hero-primary-button,
+    .hero-secondary-button {
+        width: 100%;
+    }
+
+    .hero-trust {
+        gap: 12px 18px;
+    }
+
+    .trust-item {
+        font-size: 11px;
+    }
+
+    .security-card {
+        padding: 18px;
+
+        border-radius: 16px;
+    }
+
+    .security-card-header {
+        align-items: flex-start;
+    }
+
+    .security-title h3 {
+        font-size: 13px;
+    }
+
+    .security-title span {
+        font-size: 9px;
+    }
+
+    .firewall-status {
+        font-size: 9px;
+    }
+
+    .prompt-box,
+    .detection-box,
+    .safe-box {
+        padding: 12px;
+    }
+
+    .detection-item {
+        grid-template-columns: 55px 1fr auto;
+
+        gap: 7px;
+    }
+
+}
+
+
+/* =========================================
+   VERY SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+    .hero-title {
+        font-size: 32px;
+    }
+
+    .hero-description {
+        font-size: 13px;
+    }
+
+    .hero-badge {
+        font-size: 10px;
+    }
+
+    .hero-trust {
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+    .security-card {
+        padding: 15px;
+    }
+
+    .detection-item {
+        grid-template-columns: 1fr;
+
+        gap: 4px;
+    }
+
+    .detection-action {
+        width: fit-content;
+    }
+
+}

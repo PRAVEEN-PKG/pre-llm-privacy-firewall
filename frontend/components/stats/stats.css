@@ -1,0 +1,540 @@
+/* =====================================================
+   SHIELDAI - STATS SECTION CSS
+===================================================== */
+
+.stats {
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* =========================================
+   STATS HEADING
+========================================= */
+
+.stats-heading {
+    max-width: 850px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.stats-heading .badge {
+    margin-bottom: 20px;
+}
+
+.stats-heading .section-title {
+    margin-bottom: 20px;
+}
+
+
+/* =========================================
+   STATS GRID
+========================================= */
+
+.stats-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+
+/* =========================================
+   STAT CARD
+========================================= */
+
+.stat-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    min-height: 135px;
+
+    padding: 22px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15, 23, 42, 0.80),
+            rgba(8, 18, 32, 0.72)
+        );
+
+    border: 1px solid
+        rgba(56, 189, 248, 0.10);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+
+    border-color:
+        rgba(56, 189, 248, 0.28);
+
+    box-shadow:
+        0 15px 35px
+        rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================
+   STAT ICON
+========================================= */
+
+.stat-icon {
+    width: 52px;
+    height: 52px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        rgba(14, 165, 233, 0.08);
+
+    border: 1px solid
+        rgba(56, 189, 248, 0.14);
+
+    font-size: 23px;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+.stat-card:hover .stat-icon {
+    transform: scale(1.08);
+
+    background:
+        rgba(14, 165, 233, 0.14);
+}
+
+
+/* =========================================
+   STAT CONTENT
+========================================= */
+
+.stat-content {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+/* =========================================
+   STAT NUMBER
+========================================= */
+
+.stat-number {
+    color: #f8fafc;
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    line-height: 1;
+}
+
+
+/* =========================================
+   STAT LABEL
+========================================= */
+
+.stat-label {
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   RISK LEVELS
+========================================= */
+
+.risk-levels {
+    margin-top: 45px;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(15, 23, 42, 0.65);
+
+    border: 1px solid
+        rgba(148, 163, 184, 0.10);
+}
+
+
+/* =========================================
+   RISK LEVEL HEADER
+========================================= */
+
+.risk-levels-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 24px;
+}
+
+.risk-levels-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #38bdf8;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+}
+
+.risk-levels-header h3 {
+    color: #e2e8f0;
+
+    font-size: 19px;
+}
+
+.risk-levels-status {
+    padding: 7px 11px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(14, 165, 233, 0.06);
+
+    border: 1px solid
+        rgba(56, 189, 248, 0.12);
+
+    color: #7dd3fc;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   RISK LEVEL GRID
+========================================= */
+
+.risk-level-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+}
+
+
+/* =========================================
+   RISK LEVEL ITEM
+========================================= */
+
+.risk-level-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 14px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(2, 8, 23, 0.40);
+
+    border: 1px solid
+        rgba(148, 163, 184, 0.07);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.risk-level-item:hover {
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(148, 163, 184, 0.18);
+}
+
+
+/* =========================================
+   RISK DOT
+========================================= */
+
+.risk-dot {
+    width: 10px;
+    height: 10px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+}
+
+
+/* Risk levels */
+
+.risk-dot.low {
+    background: #22c55e;
+
+    box-shadow:
+        0 0 10px
+        rgba(34, 197, 94, 0.45);
+}
+
+.risk-dot.medium {
+    background: #eab308;
+
+    box-shadow:
+        0 0 10px
+        rgba(234, 179, 8, 0.45);
+}
+
+.risk-dot.high {
+    background: #f97316;
+
+    box-shadow:
+        0 0 10px
+        rgba(249, 115, 22, 0.45);
+}
+
+.risk-dot.critical {
+    background: #ef4444;
+
+    box-shadow:
+        0 0 10px
+        rgba(239, 68, 68, 0.45);
+}
+
+
+/* =========================================
+   RISK TEXT
+========================================= */
+
+.risk-level-item div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.risk-level-item strong {
+    color: #e2e8f0;
+
+    font-size: 11px;
+
+    letter-spacing: 0.5px;
+}
+
+.risk-level-item div span {
+    color: #64748b;
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   STATS MESSAGE
+========================================= */
+
+.stats-message {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    max-width: 850px;
+
+    margin: 32px auto 0;
+
+    padding: 18px 22px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(14, 165, 233, 0.04);
+
+    border: 1px solid
+        rgba(56, 189, 248, 0.10);
+}
+
+
+/* =========================================
+   MESSAGE ICON
+========================================= */
+
+.stats-message-icon {
+    width: 43px;
+    height: 43px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(14, 165, 233, 0.08);
+
+    border: 1px solid
+        rgba(56, 189, 248, 0.12);
+
+    font-size: 20px;
+}
+
+
+/* =========================================
+   MESSAGE CONTENT
+========================================= */
+
+.stats-message strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #e2e8f0;
+
+    font-size: 14px;
+}
+
+.stats-message p {
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+    .stats-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .risk-level-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .stats-heading {
+        margin-bottom: 40px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    .stat-card {
+        min-height: 115px;
+
+        padding: 18px;
+    }
+
+    .stat-number {
+        font-size: 25px;
+    }
+
+    .risk-levels {
+        padding: 18px;
+    }
+
+    .risk-levels-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+    .risk-level-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-message {
+        align-items: flex-start;
+
+        padding: 16px;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 400px) {
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .stat-icon {
+        width: 46px;
+        height: 46px;
+
+        font-size: 20px;
+    }
+
+    .stat-number {
+        font-size: 23px;
+    }
+
+    .risk-levels-header h3 {
+        font-size: 17px;
+    }
+
+}

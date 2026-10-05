@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | ShieldAI</title>
+    <meta name="description" content="Understand how ShieldAI works, from detection and risk scoring to backend architecture and API flow.">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="documentation.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar container">
+            <a href="../index.html" class="brand" aria-label="ShieldAI home page">
+                <span class="brand-icon">🛡️</span>
+                <span class="brand-text">
+                    <span class="brand-name">ShieldAI</span>
+                    <span class="brand-tagline">Privacy Firewall</span>
+                </span>
+            </a>
+
+            <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../how-it-works/how-it-works.html" class="nav-link">How It Works</a>
+                <a href="../features/features.html" class="nav-link">Features</a>
+                <a href="../scanner/scanner.html" class="nav-link">Scanner</a>
+                <a href="../dashboard/dashboard.html" class="nav-link">Dashboard</a>
+                <a href="../history/history.html" class="nav-link">History</a>
+                <a href="../policies/policies.html" class="nav-link">Policies</a>
+                <a href="documentation.html" class="nav-link active">Documentation</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container narrow">
+                <span class="eyebrow">Developer docs</span>
+                <h1>ShieldAI architecture and security flow</h1>
+            </div>
+        </section>
+
+        <section class="docs-section">
+            <div class="container docs-grid">
+                <article class="doc-card glass-card">
+                    <h3>What is ShieldAI?</h3>
+                    <p>ShieldAI is a privacy firewall for AI systems. It checks user input before it reaches third-party LLMs and blocks or masks sensitive data automatically.</p>
+                </article>
+
+                <article class="doc-card glass-card">
+                    <h3>Why Privacy Firewall?</h3>
+                    <p>Organizations often expose names, emails, credentials, and internal information through AI prompts. ShieldAI acts as the critical security barrier.</p>
+                </article>
+
+                <article class="doc-card glass-card">
+                    <h3>How detection works</h3>
+                    <p>Detection is performed using pattern-based analysis, keyword matching, context detection, and rule-based classifiers for personal and confidential data.</p>
+                </article>
+
+                <article class="doc-card glass-card">
+                    <h3>Risk scoring</h3>
+                    <p>Risk scores increase as the number and severity of detected data points rises. Scores help teams prioritize which prompts need immediate enforcement.</p>
+                </article>
+
+                <article class="doc-card glass-card">
+                    <h3>Protection policies</h3>
+                    <p>Policies define whether content should be masked, redacted, or fully blocked. The system applies the rules consistently across all scanned inputs.</p>
+                </article>
+
+                <article class="doc-card glass-card">
+                    <h3>Prompt sanitization</h3>
+                    <p>Before an external model sees the text, risky content is replaced with safe placeholders such as [EMAIL] or [NAME] to preserve prompt clarity.</p>
+                </article>
+
+                <article class="doc-card glass-card">
+                    <h3>Backend architecture</h3>
+                    <p>The application includes input capture, policy evaluation, risk scoring, sanitization, and historical logging services for monitoring and audits.</p>
+                </article>
+
+                <article class="doc-card glass-card">
+                    <h3>API endpoints</h3>
+                    <p>Typical endpoints include /scan, /history, /policies, /dashboard, and /analyze. Each endpoint can validate or process AI input and return safe results.</p>
+                </article>
+
+                <article class="doc-card glass-card">
+                    <h3>Security flow</h3>
+                    <p>User input → detection → scoring → policy engine → masking/blocking → safe prompt → external AI model.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span class="year"></span> ShieldAI. Privacy-first AI protection.</p>
+            <div class="footer-links">
+                <a href="../scanner/scanner.html">Scanner</a>
+                <a href="../documentation/documentation.html">Docs</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="documentation.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History | ShieldAI</title>
+    <meta name="description" content="Review previous scans, risk findings, and sanitized outputs from the ShieldAI privacy firewall.">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="history.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar container">
+            <a href="../index.html" class="brand" aria-label="ShieldAI home page">
+                <span class="brand-icon">🛡️</span>
+                <span class="brand-text">
+                    <span class="brand-name">ShieldAI</span>
+                    <span class="brand-tagline">Privacy Firewall</span>
+                </span>
+            </a>
+
+            <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../how-it-works/how-it-works.html" class="nav-link">How It Works</a>
+                <a href="../features/features.html" class="nav-link">Features</a>
+                <a href="../scanner/scanner.html" class="nav-link">Scanner</a>
+                <a href="../dashboard/dashboard.html" class="nav-link">Dashboard</a>
+                <a href="history.html" class="nav-link active">History</a>
+                <a href="../policies/policies.html" class="nav-link">Policies</a>
+                <a href="../documentation/documentation.html" class="nav-link">Documentation</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container narrow">
+                <span class="eyebrow">Scan history</span>
+                <h1>Previous privacy checks and protection events</h1>
+            </div>
+        </section>
+
+        <section class="history-section">
+            <div class="container">
+                <div class="toolbar glass-card">
+                    <input type="search" id="searchInput" placeholder="Search prompts or data types...">
+                    <select id="filterSelect">
+                        <option value="all">All risk levels</option>
+                        <option value="LOW">Low</option>
+                        <option value="MEDIUM">Medium</option>
+                        <option value="HIGH">High</option>
+                    </select>
+                    <button id="clearHistoryBtn" class="secondary-btn" type="button">Clear History</button>
+                </div>
+
+                <div class="table-wrap glass-card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Prompt</th>
+                                <th>Detected Data</th>
+                                <th>Risk Score</th>
+                                <th>Risk Level</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <tr>
+                                <td colspan="6">No scan history yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span class="year"></span> ShieldAI. Privacy-first AI protection.</p>
+            <div class="footer-links">
+                <a href="../scanner/scanner.html">Scanner</a>
+                <a href="../documentation/documentation.html">Docs</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../main.js"></script>
+    <script src="history.js"></script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShieldAI | Pre-LLM Privacy Firewall</title>
+    <meta name="description"
+        content="ShieldAI is a Pre-LLM Privacy Firewall that detects and masks sensitive data before prompts reach external AI systems.">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar container" aria-label="Main navigation">
+            <a href="index.html" class="brand" aria-label="ShieldAI home page">
+                <span class="brand-icon">🛡️</span>
+                <span class="brand-text">
+                    <span class="brand-name">ShieldAI</span>
+                    <span class="brand-tagline">Privacy Firewall</span>
+                </span>
+            </a>
+
+            <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="how-it-works/how-it-works.html" class="nav-link">How It Works</a>
+                <a href="features/features.html" class="nav-link">Features</a>
+                <a href="scanner/scanner.html" class="nav-link">Scanner</a>
+                <a href="dashboard/dashboard.html" class="nav-link">Dashboard</a>
+                <a href="history/history.html" class="nav-link">History</a>
+                <a href="policies/policies.html" class="nav-link">Policies</a>
+                <a href="documentation/documentation.html" class="nav-link">Documentation</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container narrow">
+                <span class="eyebrow">AI privacy firewall</span>
+                <h1>Protect sensitive data before it reaches any LLM.</h1>
+                <p>ShieldAI inspects prompts, detects exposure, and masks private data before external AI tools can
+                    access it.</p>
+                <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-top:28px;">
+                    <a href="scanner/scanner.html" class="primary-button">Run a scan</a>
+                    <a href="how-it-works/how-it-works.html" class="secondary-button">Learn more</a>
+                </div>
+                <div
+                    style="display:flex; justify-content:center; flex-wrap:wrap; gap:24px; margin-top:30px; color:#cbd5e1;">
+                    <div><strong style="font-size:1.4rem; color:#fff; display:block;">99.2%</strong><span>Detection
+                            rate</span></div>
+                    <div><strong style="font-size:1.4rem; color:#fff; display:block;">&lt;200ms</strong><span>Average
+                            response</span></div>
+                    <div><strong
+                            style="font-size:1.4rem; color:#fff; display:block;">24/7</strong><span>Monitoring</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="padding:30px 0 90px;">
+            <div class="container" style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px;">
+                <article class="glass-card" style="padding:26px 22px;">
+                    <div style="font-size:2rem; margin-bottom:12px;">🔍</div>
+                    <h3 style="margin-bottom:10px;">Detect hidden exposure</h3>
+                    <p style="color:#cbd5e1;">ShieldAI scans each prompt for names, emails, credentials, and internal
+                        confidential data before it is sent onwards.</p>
+                </article>
+                <article class="glass-card" style="padding:26px 22px;">
+                    <div style="font-size:2rem; margin-bottom:12px;">📊</div>
+                    <h3 style="margin-bottom:10px;">Measure risk instantly</h3>
+                    <p style="color:#cbd5e1;">Each input receives a risk score so teams know when something needs
+                        masking, redaction, or blocking.</p>
+                </article>
+                <article class="glass-card" style="padding:26px 22px;">
+                    <div style="font-size:2rem; margin-bottom:12px;">🛡️</div>
+                    <h3 style="margin-bottom:10px;">Protect every workflow</h3>
+                    <p style="color:#cbd5e1;">Use policy-based enforcement to keep private information from reaching
+                        unsafe AI systems.</p>
+                </article>
+            </div>
+        </section>
+
+        <section style="padding:0 0 100px;">
+            <div class="container"
+                style="display:grid; grid-template-columns:1.1fr 0.9fr; gap:24px; align-items:center;">
+                <div class="glass-card" style="padding:28px 24px;">
+                    <span class="eyebrow">Demo preview</span>
+                    <h2 style="font-size:2rem; margin-bottom:12px;">From risky prompt to safe AI input</h2>
+                    <p style="color:#cbd5e1; margin-bottom:14px;">Before: "My name is Ajay Kumar and my email is
+                        ajay@gmail.com"</p>
+                    <p style="color:#7dd3fc; margin-bottom:10px;">After: "My name is [NAME] and my email is [EMAIL]."
+                    </p>
+                    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:18px;">
+                        <span class="eyebrow" style="margin:0;">NAME</span>
+                        <span class="eyebrow" style="margin:0;">EMAIL</span>
+                        <span class="eyebrow" style="margin:0;">MASKED</span>
+                    </div>
+                </div>
+                <div class="glass-card" style="padding:28px 24px;">
+                    <h3 style="margin-bottom:16px;">Panel preview</h3>
+                    <div style="display:grid; gap:12px;">
+                        <div
+                            style="padding:14px 16px; border-radius:12px; background:rgba(2,6,23,0.4); border:1px solid rgba(148,163,184,0.12);">
+                            <div
+                                style="color:#94a3b8; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">
+                                Detected Data</div>
+                            <div style="margin-top:6px; font-weight:700;">NAME, EMAIL</div>
+                        </div>
+                        <div
+                            style="padding:14px 16px; border-radius:12px; background:rgba(2,6,23,0.4); border:1px solid rgba(148,163,184,0.12);">
+                            <div
+                                style="color:#94a3b8; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">
+                                Risk Score</div>
+                            <div style="margin-top:6px; font-weight:700; color:#fcd34d;">40/100</div>
+                        </div>
+                        <div
+                            style="padding:14px 16px; border-radius:12px; background:rgba(2,6,23,0.4); border:1px solid rgba(148,163,184,0.12);">
+                            <div
+                                style="color:#94a3b8; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">
+                                Safe Prompt</div>
+                            <div style="margin-top:6px; color:#86efac;">My name is [NAME] and my email is [EMAIL].</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="padding:0 0 100px;">
+            <div class="container">
+                <div style="text-align:center; margin-bottom:26px;">
+                    <span class="eyebrow">Security statistics</span>
+                    <h2 style="font-size:2.3rem;">Measured impact in real workflows</h2>
+                </div>
+                <div style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:20px;">
+                    <div class="glass-card" style="padding:26px 20px; text-align:center;">
+                        <div style="font-size:0.8rem; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em;">
+                            Total scans</div>
+                        <div style="font-size:2rem; margin-top:8px; font-weight:700;">12.4K</div>
+                    </div>
+                    <div class="glass-card" style="padding:26px 20px; text-align:center;">
+                        <div style="font-size:0.8rem; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em;">
+                            Protected prompts</div>
+                        <div style="font-size:2rem; margin-top:8px; font-weight:700;">98.6%</div>
+                    </div>
+                    <div class="glass-card" style="padding:26px 20px; text-align:center;">
+                        <div style="font-size:0.8rem; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em;">
+                            Blocked requests</div>
+                        <div style="font-size:2rem; margin-top:8px; font-weight:700;">1,284</div>
+                    </div>
+                    <div class="glass-card" style="padding:26px 20px; text-align:center;">
+                        <div style="font-size:0.8rem; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em;">
+                            Avg risk score</div>
+                        <div style="font-size:2rem; margin-top:8px; font-weight:700;">31/100</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="padding:0 0 100px;">
+            <div class="container">
+                <div class="glass-card"
+                    style="padding:32px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+                    <div>
+                        <span class="eyebrow">Ready to protect your prompts?</span>
+                        <h2 style="font-size:2rem;">Start scanning now with ShieldAI.</h2>
+                    </div>
+                    <a href="scanner/scanner.html" class="primary-button">Get Started</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span class="year"></span> ShieldAI. Privacy-first AI protection.</p>
+            <div class="footer-links">
+                <a href="scanner/scanner.html">Scanner</a>
+                <a href="documentation/documentation.html">Documentation</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

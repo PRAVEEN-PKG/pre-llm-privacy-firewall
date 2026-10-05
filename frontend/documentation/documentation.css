@@ -1,0 +1,39 @@
+.page-hero {
+    padding: 110px 0 60px;
+    text-align: center;
+}
+
+.page-hero h1 {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    margin-bottom: 18px;
+}
+
+.docs-section {
+    padding: 20px 0 100px;
+}
+
+.docs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.doc-card {
+    padding: 22px 20px;
+}
+
+.doc-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 12px;
+}
+
+.doc-card p {
+    color: #dbeafe;
+    line-height: 1.8;
+}
+
+@media (max-width: 760px) {
+    .docs-grid {
+        grid-template-columns: 1fr;
+    }
+}
