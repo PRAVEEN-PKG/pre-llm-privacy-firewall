@@ -48,6 +48,9 @@ test('detects and redacts names regardless of case and supported label form', ()
     ['Name: Rahul', 'Rahul'],
     ['NAME: RAHUL', 'RAHUL'],
     ['NAME IS RAHUL', 'RAHUL'],
+    ['NAME - ABC', 'ABC'],
+    ['name - abc', 'abc'],
+    ['Name - Abc', 'Abc'],
     ['NAME IS John Smith', 'John Smith'],
     ['MY NAME IS JOHN SMITH', 'JOHN SMITH'],
     ['name - María García -', 'María García'],
@@ -63,6 +66,34 @@ test('detects and redacts names regardless of case and supported label form', ()
     assert.equal(detection.value, name);
     assert.equal(protectText(text, [detection], 'strict').protectedText, text.replace(name, '[NAME]'));
   }
+});
+
+test('detects and redacts seven-digit registrations in labeled forms regardless of case', () => {
+  const prompts = [
+    ['REG NO 1234567', 'REG NO [REGISTRATION_NUMBER]'],
+    ['reg no 1234567', 'reg no [REGISTRATION_NUMBER]'],
+    ['Reg No 1234567', 'Reg No [REGISTRATION_NUMBER]'],
+    ['REGNO 1234567', 'REGNO [REGISTRATION_NUMBER]'],
+    ['regno 1234567', 'regno [REGISTRATION_NUMBER]'],
+    ['Regno 1234567', 'Regno [REGISTRATION_NUMBER]'],
+    ['registration no 1234567', 'registration no [REGISTRATION_NUMBER]'],
+    ['REGISTRATION NO 1234567', 'REGISTRATION NO [REGISTRATION_NUMBER]']
+  ];
+
+  for (const [text, expected] of prompts) {
+    const detection = detectSensitiveData(text).find(
+      (item) => item.type === 'REGISTRATION_NUMBER'
+    );
+    assert.ok(detection, `expected registration detection for "${text}"`);
+    assert.equal(detection.value, '1234567');
+    assert.equal(detection.start, text.indexOf('1234567'));
+    assert.equal(protectText(text, [detection], 'strict').protectedText, expected);
+  }
+
+  const standalone = detectSensitiveData('1234567').find(
+    (item) => item.type === 'REGISTRATION_NUMBER'
+  );
+  assert.ok(standalone, 'standalone seven-digit registration detection must remain supported');
 });
 
 test('live scan API detects and redacts uppercase NAME IS input', async () => {
@@ -137,6 +168,9 @@ test('client fallback detects and redacts names regardless of case', () => {
     'Name: Rahul',
     'NAME: RAHUL',
     'NAME IS RAHUL',
+    'NAME - ABC',
+    'name - abc',
+    'Name - Abc',
     'NAME IS John Smith',
     'MY NAME IS JOHN SMITH',
     'name - María García -',
@@ -150,6 +184,35 @@ test('client fallback detects and redacts names regardless of case', () => {
     assert.ok(detection, `expected NAME detection for "${text}"`);
     assert.equal(result.protectedText, text.replace(detection.value, '[NAME]'));
     assert.equal(result.protectedText.includes(detection.value), false);
+  }
+});
+
+test('client fallback detects all labeled seven-digit registration case variants', () => {
+  const scannerPath = path.join(__dirname, '../../frontend/scanner/scanner.js');
+  const context = vm.createContext({
+    document: { addEventListener() {} }
+  });
+  vm.runInContext(fs.readFileSync(scannerPath, 'utf8'), context);
+
+  for (const [text, expected] of [
+    ['REG NO 1234567', 'REG NO [REGISTRATION_NUMBER]'],
+    ['reg no 1234567', 'reg no [REGISTRATION_NUMBER]'],
+    ['Reg No 1234567', 'Reg No [REGISTRATION_NUMBER]'],
+    ['REGNO 1234567', 'REGNO [REGISTRATION_NUMBER]'],
+    ['regno 1234567', 'regno [REGISTRATION_NUMBER]'],
+    ['Regno 1234567', 'Regno [REGISTRATION_NUMBER]'],
+    ['registration no 1234567', 'registration no [REGISTRATION_NUMBER]'],
+    ['REGISTRATION NO 1234567', 'REGISTRATION NO [REGISTRATION_NUMBER]'],
+    ['1234567', '[REGISTRATION_NUMBER]']
+  ]) {
+    const result = context.runClientSimulation(text, 'strict');
+    const detection = result.detections.find(
+      (item) => item.type === 'REGISTRATION_NUMBER'
+    );
+    assert.ok(detection, `expected registration detection for "${text}"`);
+    assert.equal(detection.value, '1234567');
+    assert.equal(result.protectedText, expected);
+    assert.equal(result.protectedText.includes('1234567'), false);
   }
 });
 
@@ -205,6 +268,9 @@ test('home-page demo simulation redacts registration identifiers and internation
 
   for (const [text, expected, original] of [
     ['MY REG NO IS 1234567', 'MY REG NO IS [REGISTRATION_NUMBER]', '1234567'],
+    ['REGNO 1234567', 'REGNO [REGISTRATION_NUMBER]', '1234567'],
+    ['registration no 1234567', 'registration no [REGISTRATION_NUMBER]', '1234567'],
+    ['NAME - ABC', 'NAME - [NAME]', 'ABC'],
     ['NAME IS John Smith', 'NAME IS [NAME]', 'John Smith'],
     ['name - María García -', 'name - [NAME] -', 'María García'],
     ['NAME: 李小龍', 'NAME: [NAME]', '李小龍']
