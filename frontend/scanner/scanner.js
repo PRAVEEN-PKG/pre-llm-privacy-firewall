@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const SCAN_API_URL = "http://localhost:3001/api/scan";
 const HEALTH_API_URL = "http://localhost:3001/api/health";
 
@@ -101,7 +102,10 @@ function runClientSimulation(text, policy) {
         isSimulation: true
     };
 }
-
+=======
+const SCAN_API_URL = "https://pre-llm-privacy-firewall.vercel.app/api/scan";
+// >>>>>>> e4a3197e6641907986e02f5d7252eabc63f7897a
+const HEALTH_API_URL = "http://localhost:3001/api/health";
 document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("promptInput");
     const policySelect = document.getElementById("policySelect");
