@@ -1,4 +1,4 @@
-const SCAN_API_URL = "https://pre-llm-privacy-firewall.vercel.app/api/scan";
+const SCAN_API_URL = "http://localhost:3001/api/scan";
 const HEALTH_API_URL = "http://localhost:3001/api/health";
 
 // In-Browser Firewall Engine (Exact mirror of backend services for seamless fallback)
@@ -30,20 +30,33 @@ const CLIENT_PATTERNS = [
             return digits.length >= 10 && digits.length <= 15;
         }
     },
+    {
+        type: 'REGISTRATION_NUMBER',
+        regex: /\b(?:registration(?:\s*(?:number|no\.?|#))?|reg(?:istration)?\s*(?:no\.?|number|#)|vehicle\s+(?:registration|reg)(?:\s*(?:number|no\.?|#))?)\s*(?:is\s+|[:=#-]\s*|\s+)([A-Z0-9][A-Z0-9/-]{3,19})\b/gi,
+        capture: 1
+    },
+    {
+        type: 'REGISTRATION_NUMBER',
+        regex: /\b(?:[A-Z]{2}[-\s]?\d{1,2}[-\s]?[A-Z]{1,3}[-\s]?\d{1,4}|\d{2}\s?BH\s?\d{4}\s?[A-Z]{1,2})\b/gi
+    },
+    {
+        type: 'REGISTRATION_NUMBER',
+        regex: /\b\d{7}\b/g
+    },
     { type: 'HEALTH_INFO', regex: /\b(?:diagnosed with|medical condition|health condition|medical history|taking medication for|HIV|diabetes|cancer|depression|bipolar disorder|asthma)\b/gi },
     { type: 'ADDRESS', regex: /\b(?:address|home address|lives at)\s*[:=]?\s*[^,;\n.]{5,}/gi },
     { type: 'ORGANIZATION', regex: /\b(?:works at|employed by|company|organization|organisation)\s*[:=]?\s*[A-Z][\w&.-]*(?:\s+[A-Z][\w&.-]*){0,3}/gi },
-    { type: 'NAME', regex: /\b(?:my name is|name\s*[:=])\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})/gi }
+    { type: 'NAME', regex: /\b(?:(?:my\s+)?name\s*(?:is\b|[:=]|-\s*)|i\s+am|i['’]m)\s*([\p{L}\p{M}]+(?:['’\-][\p{L}\p{M}]+)*(?:\s+[\p{L}\p{M}]+(?:['’\-][\p{L}\p{M}]+)*){0,4})(?=\s*(?:[-,;.!?\n]|$))/giu }
 ];
 
 const POLICIES_MAP = {
-    strict: new Set(['NAME', 'EMAIL', 'PHONE', 'PASSWORD', 'CREDIT_CARD', 'ADDRESS', 'HEALTH_INFO', 'API_KEY', 'ORGANIZATION']),
-    balanced: new Set(['NAME', 'EMAIL', 'PHONE', 'PASSWORD', 'CREDIT_CARD', 'HEALTH_INFO', 'API_KEY']),
-    minimal: new Set(['PASSWORD', 'CREDIT_CARD', 'API_KEY'])
+    strict: new Set(['NAME', 'EMAIL', 'PHONE', 'PASSWORD', 'CREDIT_CARD', 'ADDRESS', 'HEALTH_INFO', 'API_KEY', 'ORGANIZATION', 'REGISTRATION_NUMBER']),
+    balanced: new Set(['NAME', 'EMAIL', 'PHONE', 'PASSWORD', 'CREDIT_CARD', 'HEALTH_INFO', 'API_KEY', 'REGISTRATION_NUMBER']),
+    minimal: new Set(['PASSWORD', 'CREDIT_CARD', 'API_KEY', 'REGISTRATION_NUMBER'])
 };
 
 const RISK_WEIGHTS = {
-    NAME: 10, EMAIL: 40, PHONE: 45, PASSWORD: 55, CREDIT_CARD: 55, ADDRESS: 15, HEALTH_INFO: 55, API_KEY: 55, ORGANIZATION: 10
+    NAME: 10, EMAIL: 40, PHONE: 45, PASSWORD: 55, CREDIT_CARD: 55, ADDRESS: 15, HEALTH_INFO: 55, API_KEY: 55, ORGANIZATION: 10, REGISTRATION_NUMBER: 40
 };
 
 function runClientSimulation(text, policy) {
@@ -51,8 +64,8 @@ function runClientSimulation(text, policy) {
     for (const pat of CLIENT_PATTERNS) {
         pat.regex.lastIndex = 0;
         for (const match of text.matchAll(pat.regex)) {
-            const value = pat.type === 'NAME' ? match[1] : match[0];
-            const valueOffset = pat.type === 'NAME' ? match[0].lastIndexOf(value) : 0;
+            const value = pat.capture ? match[pat.capture] : pat.type === 'NAME' ? match[1] : match[0];
+            const valueOffset = pat.capture || pat.type === 'NAME' ? match[0].lastIndexOf(value) : 0;
             const start = match.index + valueOffset;
             if (pat.validate && !pat.validate(value)) continue;
             rawDetections.push({ type: pat.type, value: value, start: start, end: start + value.length });

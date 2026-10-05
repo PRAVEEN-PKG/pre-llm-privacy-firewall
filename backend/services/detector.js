@@ -28,6 +28,19 @@ const patterns = [
     }
   },
   {
+    type: 'REGISTRATION_NUMBER',
+    regex: /\b(?:registration(?:\s*(?:number|no\.?|#))?|reg(?:istration)?\s*(?:no\.?|number|#)|vehicle\s+(?:registration|reg)(?:\s*(?:number|no\.?|#))?)\s*(?:is\s+|[:=#-]\s*|\s+)([A-Z0-9][A-Z0-9/-]{3,19})\b/gi,
+    capture: 1
+  },
+  {
+    type: 'REGISTRATION_NUMBER',
+    regex: /\b(?:[A-Z]{2}[-\s]?\d{1,2}[-\s]?[A-Z]{1,3}[-\s]?\d{1,4}|\d{2}\s?BH\s?\d{4}\s?[A-Z]{1,2})\b/gi
+  },
+  {
+    type: 'REGISTRATION_NUMBER',
+    regex: /\b\d{7}\b/g
+  },
+  {
     type: 'HEALTH_INFO',
     regex: /\b(?:diagnosed with|medical condition|health condition|medical history|taking medication for|HIV|diabetes|cancer|depression|bipolar disorder|asthma)\b/gi
   },
@@ -41,7 +54,7 @@ const patterns = [
   },
   {
     type: 'NAME',
-    regex: /\b(?:my name is|name\s*[:=])\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})/gi
+    regex: /\b(?:(?:my\s+)?name\s*(?:is\b|[:=]|-\s*)|i\s+am|i['’]m)\s*([\p{L}\p{M}]+(?:['’\-][\p{L}\p{M}]+)*(?:\s+[\p{L}\p{M}]+(?:['’\-][\p{L}\p{M}]+)*){0,4})(?=\s*(?:[-,;.!?\n]|$))/giu
   }
 ];
 
@@ -65,11 +78,11 @@ function passesLuhn(digits) {
 function detectSensitiveData(text) {
   const detections = [];
 
-  for (const { type, regex, validate } of patterns) {
+  for (const { type, regex, validate, capture } of patterns) {
     regex.lastIndex = 0;
     for (const match of text.matchAll(regex)) {
-      const value = type === 'NAME' ? match[1] : match[0];
-      const valueOffset = type === 'NAME' ? match[0].lastIndexOf(value) : 0;
+      const value = capture ? match[capture] : type === 'NAME' ? match[1] : match[0];
+      const valueOffset = capture || type === 'NAME' ? match[0].lastIndexOf(value) : 0;
       const start = match.index + valueOffset;
 
       if (validate && !validate(value)) continue;

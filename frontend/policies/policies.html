@@ -59,7 +59,7 @@
             <div class="container">
                 <!-- Policy Filter Pills -->
                 <div class="policy-filter-bar">
-                    <button type="button" class="filter-chip active" data-filter="all">All Rules (8)</button>
+                    <button type="button" class="filter-chip active" data-filter="all">All Rules (9)</button>
                     <button type="button" class="filter-chip" data-filter="mask">Mask Actions</button>
                     <button type="button" class="filter-chip" data-filter="block">Block Actions</button>
                     <button type="button" class="filter-chip" data-filter="redact">Redact Actions</button>
@@ -111,6 +111,22 @@
                         <div class="policy-footer">
                             <span class="severity-tag low">&bull; Medium Impact</span>
                             <span class="status-active">Active in Strict Mode</span>
+                        </div>
+                    </article>
+
+                    <!-- REGISTRATION NUMBER -->
+                    <article class="policy-card glass-card" data-action="redact">
+                        <div class="policy-card-top">
+                            <div class="policy-ident">
+                                <span class="policy-type">REGISTRATION NUMBER</span>
+                                <span class="rule-id">RULE-PII-04</span>
+                            </div>
+                            <span class="action action-redact">REDACT</span>
+                        </div>
+                        <p class="policy-desc">Vehicle plates and labeled registration identifiers are replaced with a fixed placeholder before prompt transmission.</p>
+                        <div class="policy-footer">
+                            <span class="severity-tag medium">&bull; Sensitive Identifier</span>
+                            <span class="status-active">Enforced in All Policies</span>
                         </div>
                     </article>
 

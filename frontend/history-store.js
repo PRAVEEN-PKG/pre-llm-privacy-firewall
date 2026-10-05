@@ -9,7 +9,8 @@
         "ADDRESS",
         "HEALTH_INFO",
         "API_KEY",
-        "ORGANIZATION"
+        "ORGANIZATION",
+        "REGISTRATION_NUMBER"
     ];
     const RISK_LEVELS = ["LOW", "MEDIUM", "HIGH", "CRITICAL"];
     const ACTIONS = ["MASKED", "SAFE", "BLOCKED"];

@@ -80,6 +80,68 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let safeText = text;
 
+        /* REGISTRATION NUMBER */
+
+        const registrationPatterns = [
+            {
+                regex: /\b(?:registration(?:\s*(?:number|no\.?|#))?|reg(?:istration)?\s*(?:no\.?|number|#)|vehicle\s+(?:registration|reg)(?:\s*(?:number|no\.?|#))?)\s*(?:is\s+|[:=#-]\s*|\s+)([A-Z0-9][A-Z0-9/-]{3,19})\b/gi,
+                capture: 1
+            },
+            {
+                regex: /\b(?:[A-Z]{2}[-\s]?\d{1,2}[-\s]?[A-Z]{1,3}[-\s]?\d{1,4}|\d{2}\s?BH\s?\d{4}\s?[A-Z]{1,2})\b/gi
+            },
+            {
+                regex: /\b\d{7}\b/g
+            }
+        ];
+        const registrationDetections = [];
+
+        registrationPatterns.forEach(function (pattern) {
+            pattern.regex.lastIndex = 0;
+            for (const match of text.matchAll(pattern.regex)) {
+                const value = pattern.capture ? match[pattern.capture] : match[0];
+                const valueOffset = pattern.capture ? match[0].lastIndexOf(value) : 0;
+                const start = match.index + valueOffset;
+
+                registrationDetections.push({
+                    start: start,
+                    end: start + value.length
+                });
+            }
+        });
+
+        registrationDetections.sort(function (left, right) {
+            return left.start - right.start || right.end - left.end;
+        });
+
+        let registrationCursor = 0;
+        let protectedRegistrations = "";
+        const acceptedRegistrations = [];
+
+        registrationDetections.forEach(function (registration) {
+            if (acceptedRegistrations.some(function (existing) {
+                return registration.start < existing.end && registration.end > existing.start;
+            })) {
+                return;
+            }
+
+            acceptedRegistrations.push(registration);
+            protectedRegistrations += text.slice(registrationCursor, registration.start);
+            protectedRegistrations += "[REGISTRATION_NUMBER]";
+            registrationCursor = registration.end;
+
+            detected.push({
+                type: "REGISTRATION_NUMBER",
+                risk: 40
+            });
+            risk += 40;
+        });
+
+        if (acceptedRegistrations.length > 0) {
+            safeText =
+                protectedRegistrations +
+                text.slice(registrationCursor);
+        }
 
         /* EMAIL */
 
@@ -176,7 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
         /* NAME */
 
         const nameRegex =
-            /\b(?:my name is|i am|i'm)\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?/i;
+            /\b(?:(?:my\s+)?name\s*(?:is\b|[:=]|-\s*)|i\s+am|i['’]m)\s*([\p{L}\p{M}]+(?:['’\-][\p{L}\p{M}]+)*(?:\s+[\p{L}\p{M}]+(?:['’\-][\p{L}\p{M}]+)*){0,4})(?=\s*(?:[-,;.!?\n]|$))/iu;
 
         const nameMatch =
             text.match(nameRegex);
@@ -193,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
             safeText =
                 safeText.replace(
                     nameMatch[0],
-                    "[NAME]"
+                    nameMatch[0].replace(nameMatch[1], "[NAME]")
                 );
 
         }

@@ -75,7 +75,7 @@
                         <pre class="code-body"><code>curl -X POST http://localhost:3001/api/scan \
   -H "Content-Type: application/json" \
   -d '{
-    "text": "My email is ajay@gmail.com and OpenAI key is sk-1234567890",
+    "text": "My email is ajay@gmail.com, vehicle registration is MH12AB1234, and OpenAI key is sk-1234567890",
     "policy": "strict"
   }'</code></pre>
                     </div>
@@ -87,13 +87,14 @@
                         </div>
                         <pre class="code-body"><code>{
   "success": true,
-  "riskScore": 90,
+  "riskScore": 100,
   "riskLevel": "CRITICAL",
   "detections": [
-    { "type": "EMAIL", "action": "MASK", "value": "ajay@gmail.com" },
-    { "type": "API_KEY", "action": "BLOCK", "value": "sk-1234567890" }
+    { "type": "EMAIL", "action": "REDACT", "value": "ajay@gmail.com" },
+    { "type": "REGISTRATION_NUMBER", "action": "REDACT", "value": "MH12AB1234" },
+    { "type": "API_KEY", "action": "REDACT", "value": "sk-1234567890" }
   ],
-  "protectedText": "My email is [EMAIL_1] and OpenAI key is [TOKEN_BLOCKED]"
+  "protectedText": "My email is [EMAIL], vehicle registration is [REGISTRATION_NUMBER], and OpenAI key is [API_KEY]"
 }</code></pre>
                     </div>
                 </div>
@@ -128,7 +129,7 @@
                         <p>
                             <strong>Strict:</strong> Masks all PII, redacts financial/health records, and hard-blocks any developer secrets.<br>
                             <strong>Balanced:</strong> Masks direct identifiers while allowing general operational context.<br>
-                            <strong>Minimal:</strong> Enforces tripwires only on critical API tokens and credentials.
+                            <strong>Minimal:</strong> Enforces tripwires on critical API tokens, credentials, and registration identifiers.
                         </p>
                     </article>
 

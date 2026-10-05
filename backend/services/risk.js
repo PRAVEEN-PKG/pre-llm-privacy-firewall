@@ -7,7 +7,8 @@ const RISK_WEIGHTS = {
   ADDRESS: 15,
   HEALTH_INFO: 55,
   API_KEY: 55,
-  ORGANIZATION: 10
+  ORGANIZATION: 10,
+  REGISTRATION_NUMBER: 40
 };
 
 function calculateRisk(detections) {

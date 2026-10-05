@@ -8,10 +8,11 @@ const POLICIES = {
     'ADDRESS',
     'HEALTH_INFO',
     'API_KEY',
-    'ORGANIZATION'
+    'ORGANIZATION',
+    'REGISTRATION_NUMBER'
   ]),
-  balanced: new Set(['NAME', 'EMAIL', 'PHONE', 'PASSWORD', 'CREDIT_CARD', 'HEALTH_INFO', 'API_KEY']),
-  minimal: new Set(['PASSWORD', 'CREDIT_CARD', 'API_KEY'])
+  balanced: new Set(['NAME', 'EMAIL', 'PHONE', 'PASSWORD', 'CREDIT_CARD', 'HEALTH_INFO', 'API_KEY', 'REGISTRATION_NUMBER']),
+  minimal: new Set(['PASSWORD', 'CREDIT_CARD', 'API_KEY', 'REGISTRATION_NUMBER'])
 };
 
 function protectText(text, detections, policy) {
