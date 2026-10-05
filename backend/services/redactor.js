@@ -10,7 +10,7 @@ const POLICIES = {
     'API_KEY',
     'ORGANIZATION'
   ]),
-  balanced: new Set(['PASSWORD', 'CREDIT_CARD', 'HEALTH_INFO', 'API_KEY']),
+  balanced: new Set(['NAME', 'EMAIL', 'PHONE', 'PASSWORD', 'CREDIT_CARD', 'HEALTH_INFO', 'API_KEY']),
   minimal: new Set(['PASSWORD', 'CREDIT_CARD', 'API_KEY'])
 };
 

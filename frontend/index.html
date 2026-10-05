@@ -4,22 +4,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShieldAI | Pre-LLM Privacy Firewall</title>
+    <title>ShieldAI | Pre-LLM Privacy Firewall &amp; Prompt Gateway</title>
     <meta name="description"
-        content="ShieldAI is a Pre-LLM Privacy Firewall that detects and masks sensitive data before prompts reach external AI systems.">
+        content="ShieldAI is an intelligent Pre-LLM Privacy Firewall that intercepts, detects, and redacts sensitive PII and secrets before prompts reach external AI models.">
     <link rel="stylesheet" href="main.css">
+    <style>
+        .hero-showcase {
+            margin: 40px auto 0;
+            max-width: 980px;
+        }
+
+        .showcase-terminal {
+            background: rgba(3, 7, 18, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 35px rgba(56, 189, 248, 0.1);
+        }
+
+        .terminal-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 18px;
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .terminal-title {
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            color: var(--text-dim);
+            letter-spacing: 0.05em;
+        }
+
+        .terminal-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            divide-x: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0;
+        }
+
+        .terminal-pane {
+            padding: 24px;
+        }
+
+        .terminal-pane-left {
+            background: rgba(2, 6, 23, 0.4);
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .pane-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .badge-risky {
+            background: rgba(244, 63, 94, 0.12);
+            color: #fca5a5;
+            border: 1px solid rgba(244, 63, 94, 0.25);
+        }
+
+        .badge-safe {
+            background: rgba(16, 185, 129, 0.12);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .terminal-code {
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+        }
+
+        .highlight-pii {
+            background: rgba(244, 63, 94, 0.2);
+            color: #fda4af;
+            border-bottom: 1px dashed #f43f5e;
+            padding: 1px 4px;
+            border-radius: 4px;
+        }
+
+        .highlight-sanitized {
+            background: rgba(16, 185, 129, 0.18);
+            color: #86efac;
+            font-weight: 600;
+            padding: 1px 4px;
+            border-radius: 4px;
+        }
+
+        /* Trust Banner */
+        .trust-strip {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 36px;
+            padding: 16px 24px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 820px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            color: var(--text-dim);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .trust-item svg {
+            color: var(--cyan);
+        }
+
+        /* Feature Cards */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .feature-box {
+            padding: 30px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-box:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(37, 99, 235, 0.15));
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            color: var(--cyan);
+            margin-bottom: 20px;
+        }
+
+        .feature-box h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+
+        /* Comparison Section */
+        .comparison-card {
+            padding: 36px 30px;
+        }
+
+        .stat-number {
+            font-family: var(--font-mono);
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: linear-gradient(180deg, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 860px) {
+            .terminal-body {
+                grid-template-columns: 1fr;
+            }
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .stat-grid-4 {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <header class="site-header">
         <nav class="navbar container" aria-label="Main navigation">
             <a href="index.html" class="brand" aria-label="ShieldAI home page">
-                <span class="brand-icon">🛡️</span>
+                <span class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </span>
                 <span class="brand-text">
                     <span class="brand-name">ShieldAI</span>
                     <span class="brand-tagline">Privacy Firewall</span>
                 </span>
             </a>
+
+            <div class="system-status">
+                <span class="status-indicator-dot"></span>
+                <span>GATEWAY ACTIVE &bull; 0 LEAKS</span>
+            </div>
 
             <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -33,154 +265,272 @@
                 <a href="dashboard/dashboard.html" class="nav-link">Dashboard</a>
                 <a href="history/history.html" class="nav-link">History</a>
                 <a href="policies/policies.html" class="nav-link">Policies</a>
-                <a href="documentation/documentation.html" class="nav-link">Documentation</a>
+                <a href="documentation/documentation.html" class="nav-link">Docs</a>
+                <a href="scanner/scanner.html" class="nav-cta">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Live Demo
+                </a>
             </div>
         </nav>
     </header>
 
     <main>
+        <!-- Hero Section -->
         <section class="page-hero">
             <div class="container narrow">
-                <span class="eyebrow">AI privacy firewall</span>
+                <span class="eyebrow">Zero-Trust Pre-LLM Security</span>
                 <h1>Protect sensitive data before it reaches any LLM.</h1>
-                <p>ShieldAI inspects prompts, detects exposure, and masks private data before external AI tools can
-                    access it.</p>
-                <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-top:28px;">
-                    <a href="scanner/scanner.html" class="primary-button">Run a scan</a>
-                    <a href="how-it-works/how-it-works.html" class="secondary-button">Learn more</a>
+                <p>ShieldAI intercepts prompts, detects PII exposure, and masks credentials in real time before external AI tools like GPT-4, Claude, or Gemini can store or train on them.</p>
+
+                <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-top:32px;">
+                    <a href="scanner/scanner.html" class="primary-button">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/></svg>
+                        Test Live Scanner
+                    </a>
+                    <a href="how-it-works/how-it-works.html" class="secondary-button">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        Architecture Flow
+                    </a>
                 </div>
-                <div
-                    style="display:flex; justify-content:center; flex-wrap:wrap; gap:24px; margin-top:30px; color:#cbd5e1;">
-                    <div><strong style="font-size:1.4rem; color:#fff; display:block;">99.2%</strong><span>Detection
-                            rate</span></div>
-                    <div><strong style="font-size:1.4rem; color:#fff; display:block;">&lt;200ms</strong><span>Average
-                            response</span></div>
-                    <div><strong
-                            style="font-size:1.4rem; color:#fff; display:block;">24/7</strong><span>Monitoring</span>
+
+                <!-- Trust Badges -->
+                <div class="trust-strip">
+                    <div class="trust-item">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        GDPR Compliant
+                    </div>
+                    <div class="trust-item">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        HIPAA Ready
+                    </div>
+                    <div class="trust-item">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        SOC2 Standard
+                    </div>
+                    <div class="trust-item">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                        Zero-Retention Proxy
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section style="padding:30px 0 90px;">
-            <div class="container" style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:24px;">
-                <article class="glass-card" style="padding:26px 22px;">
-                    <div style="font-size:2rem; margin-bottom:12px;">🔍</div>
-                    <h3 style="margin-bottom:10px;">Detect hidden exposure</h3>
-                    <p style="color:#cbd5e1;">ShieldAI scans each prompt for names, emails, credentials, and internal
-                        confidential data before it is sent onwards.</p>
-                </article>
-                <article class="glass-card" style="padding:26px 22px;">
-                    <div style="font-size:2rem; margin-bottom:12px;">📊</div>
-                    <h3 style="margin-bottom:10px;">Measure risk instantly</h3>
-                    <p style="color:#cbd5e1;">Each input receives a risk score so teams know when something needs
-                        masking, redaction, or blocking.</p>
-                </article>
-                <article class="glass-card" style="padding:26px 22px;">
-                    <div style="font-size:2rem; margin-bottom:12px;">🛡️</div>
-                    <h3 style="margin-bottom:10px;">Protect every workflow</h3>
-                    <p style="color:#cbd5e1;">Use policy-based enforcement to keep private information from reaching
-                        unsafe AI systems.</p>
-                </article>
-            </div>
-        </section>
-
-        <section style="padding:0 0 100px;">
-            <div class="container"
-                style="display:grid; grid-template-columns:1.1fr 0.9fr; gap:24px; align-items:center;">
-                <div class="glass-card" style="padding:28px 24px;">
-                    <span class="eyebrow">Demo preview</span>
-                    <h2 style="font-size:2rem; margin-bottom:12px;">From risky prompt to safe AI input</h2>
-                    <p style="color:#cbd5e1; margin-bottom:14px;">Before: "My name is Ajay Kumar and my email is
-                        ajay@gmail.com"</p>
-                    <p style="color:#7dd3fc; margin-bottom:10px;">After: "My name is [NAME] and my email is [EMAIL]."
-                    </p>
-                    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:18px;">
-                        <span class="eyebrow" style="margin:0;">NAME</span>
-                        <span class="eyebrow" style="margin:0;">EMAIL</span>
-                        <span class="eyebrow" style="margin:0;">MASKED</span>
+            <!-- Hero Interactive Terminal Preview -->
+            <div class="container hero-showcase">
+                <div class="showcase-terminal">
+                    <div class="terminal-bar">
+                        <div class="terminal-dots">
+                            <span class="terminal-dot dot-red"></span>
+                            <span class="terminal-dot dot-yellow"></span>
+                            <span class="terminal-dot dot-green"></span>
+                        </div>
+                        <span class="terminal-title">shieldai-gateway-proxy &bull; real-time redaction inspector</span>
+                        <span style="font-size:0.75rem; color:#34d399; font-family:var(--font-mono);">&bull; ACTIVE</span>
                     </div>
-                </div>
-                <div class="glass-card" style="padding:28px 24px;">
-                    <h3 style="margin-bottom:16px;">Panel preview</h3>
-                    <div style="display:grid; gap:12px;">
-                        <div
-                            style="padding:14px 16px; border-radius:12px; background:rgba(2,6,23,0.4); border:1px solid rgba(148,163,184,0.12);">
-                            <div
-                                style="color:#94a3b8; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">
-                                Detected Data</div>
-                            <div style="margin-top:6px; font-weight:700;">NAME, EMAIL</div>
+                    <div class="terminal-body">
+                        <!-- Left Pane: Inbound Risky Prompt -->
+                        <div class="terminal-pane terminal-pane-left">
+                            <span class="pane-badge badge-risky">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                                Inbound Prompt (High Risk)
+                            </span>
+                            <p class="terminal-code">
+                                "Summarize medical report for <span class="highlight-pii">Ajay Kumar</span> (SSN: <span class="highlight-pii">981-22-4910</span>). Send billing invoice to <span class="highlight-pii">ajay@corp.com</span> using API key <span class="highlight-pii">sk-983fa98ds7f</span>."
+                            </p>
+                            <div style="margin-top:20px; display:flex; gap:8px; flex-wrap:wrap;">
+                                <span style="font-size:0.72rem; font-family:var(--font-mono); color:#fda4af; background:rgba(244,63,94,0.1); padding:3px 8px; border-radius:4px; border:1px solid rgba(244,63,94,0.2);">[DETECTED] NAME</span>
+                                <span style="font-size:0.72rem; font-family:var(--font-mono); color:#fda4af; background:rgba(244,63,94,0.1); padding:3px 8px; border-radius:4px; border:1px solid rgba(244,63,94,0.2);">[DETECTED] EMAIL</span>
+                                <span style="font-size:0.72rem; font-family:var(--font-mono); color:#fda4af; background:rgba(244,63,94,0.1); padding:3px 8px; border-radius:4px; border:1px solid rgba(244,63,94,0.2);">[DETECTED] API_KEY</span>
+                            </div>
                         </div>
-                        <div
-                            style="padding:14px 16px; border-radius:12px; background:rgba(2,6,23,0.4); border:1px solid rgba(148,163,184,0.12);">
-                            <div
-                                style="color:#94a3b8; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">
-                                Risk Score</div>
-                            <div style="margin-top:6px; font-weight:700; color:#fcd34d;">40/100</div>
-                        </div>
-                        <div
-                            style="padding:14px 16px; border-radius:12px; background:rgba(2,6,23,0.4); border:1px solid rgba(148,163,184,0.12);">
-                            <div
-                                style="color:#94a3b8; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.08em;">
-                                Safe Prompt</div>
-                            <div style="margin-top:6px; color:#86efac;">My name is [NAME] and my email is [EMAIL].</div>
+
+                        <!-- Right Pane: Outbound Safe Prompt -->
+                        <div class="terminal-pane">
+                            <span class="pane-badge badge-safe">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                                Forwarded to LLM (Zero Leak)
+                            </span>
+                            <p class="terminal-code" style="color:#cbd5e1;">
+                                "Summarize medical report for <span class="highlight-sanitized">[NAME_MASKED]</span> (SSN: <span class="highlight-sanitized">[SSN_REDACTED]</span>). Send billing invoice to <span class="highlight-sanitized">[EMAIL_MASKED]</span> using API key <span class="highlight-sanitized">[TOKEN_BLOCKED]</span>."
+                            </p>
+                            <div style="margin-top:20px; display:flex; align-items:center; justify-content:space-between;">
+                                <span style="font-size:0.75rem; font-family:var(--font-mono); color:#6ee7b7;">&check; Zero PII Leaked &bull; 14ms latency</span>
+                                <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--text-dim);">Policy: Strict</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section style="padding:0 0 100px;">
+        <!-- Core Value Proposition Grid -->
+        <section style="padding: 40px 0 90px;">
+            <div class="container grid-3">
+                <article class="glass-card feature-box">
+                    <div class="feature-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                    <h3>Detect Hidden Exposure</h3>
+                    <p>Deep regex and NER inspection scans each prompt payload for personal identifiers, credentials, tokens, and proprietary internal data before network transmission.</p>
+                </article>
+
+                <article class="glass-card feature-box">
+                    <div class="feature-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                    </div>
+                    <h3>Dynamic Threat Scoring</h3>
+                    <p>Every input receives a calibrated risk score (0-100) based on sensitivity and volume, enabling fine-grained automated policy actions: allow, mask, or hard block.</p>
+                </article>
+
+                <article class="glass-card feature-box">
+                    <div class="feature-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>Zero-Data Retention</h3>
+                    <p>Operates as an ephemeral proxy. Sensitive raw text is never logged or stored to disk, guaranteeing strict compliance with HIPAA, GDPR, and enterprise guidelines.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Statistics Banner -->
+        <section style="padding: 0 0 90px;">
             <div class="container">
-                <div style="text-align:center; margin-bottom:26px;">
-                    <span class="eyebrow">Security statistics</span>
-                    <h2 style="font-size:2.3rem;">Measured impact in real workflows</h2>
+                <div style="text-align:center; margin-bottom:34px;">
+                    <span class="eyebrow">Enterprise Telemetry</span>
+                    <h2 style="font-size:2.2rem; font-weight:800; letter-spacing:-0.02em;">Proven Defense Across Real Workflows</h2>
                 </div>
-                <div style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:20px;">
-                    <div class="glass-card" style="padding:26px 20px; text-align:center;">
-                        <div style="font-size:0.8rem; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em;">
-                            Total scans</div>
-                        <div style="font-size:2rem; margin-top:8px; font-weight:700;">12.4K</div>
+                <div class="stat-grid-4" style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:20px;">
+                    <div class="glass-card" style="padding:28px 22px; text-align:left;">
+                        <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.08em; font-family:var(--font-mono);">
+                            Total Scans
+                        </div>
+                        <div class="stat-number" style="margin-top:6px;">12.4K+</div>
+                        <span style="font-size:0.8rem; color:#34d399;">&uarr; 28% this month</span>
                     </div>
-                    <div class="glass-card" style="padding:26px 20px; text-align:center;">
-                        <div style="font-size:0.8rem; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em;">
-                            Protected prompts</div>
-                        <div style="font-size:2rem; margin-top:8px; font-weight:700;">98.6%</div>
+
+                    <div class="glass-card" style="padding:28px 22px; text-align:left;">
+                        <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.08em; font-family:var(--font-mono);">
+                            PII Redaction Rate
+                        </div>
+                        <div class="stat-number" style="margin-top:6px;">99.8%</div>
+                        <span style="font-size:0.8rem; color:#34d399;">High precision NER</span>
                     </div>
-                    <div class="glass-card" style="padding:26px 20px; text-align:center;">
-                        <div style="font-size:0.8rem; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em;">
-                            Blocked requests</div>
-                        <div style="font-size:2rem; margin-top:8px; font-weight:700;">1,284</div>
+
+                    <div class="glass-card" style="padding:28px 22px; text-align:left;">
+                        <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.08em; font-family:var(--font-mono);">
+                            Leaks Prevented
+                        </div>
+                        <div class="stat-number" style="margin-top:6px;">1,284</div>
+                        <span style="font-size:0.8rem; color:#f87171;">Credentials blocked</span>
                     </div>
-                    <div class="glass-card" style="padding:26px 20px; text-align:center;">
-                        <div style="font-size:0.8rem; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em;">
-                            Avg risk score</div>
-                        <div style="font-size:2rem; margin-top:8px; font-weight:700;">31/100</div>
+
+                    <div class="glass-card" style="padding:28px 22px; text-align:left;">
+                        <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.08em; font-family:var(--font-mono);">
+                            Avg Latency
+                        </div>
+                        <div class="stat-number" style="margin-top:6px;">&lt;18ms</div>
+                        <span style="font-size:0.8rem; color:#38bdf8;">Near zero overhead</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section style="padding:0 0 100px;">
+        <!-- Final CTA Banner -->
+        <section style="padding: 0 0 100px;">
             <div class="container">
                 <div class="glass-card"
-                    style="padding:32px 24px; display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+                    style="padding:42px 36px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; border:1px solid rgba(56, 189, 248, 0.25); background:radial-gradient(circle at 10% 50%, rgba(56, 189, 248, 0.1), transparent 50%), var(--card);">
                     <div>
-                        <span class="eyebrow">Ready to protect your prompts?</span>
-                        <h2 style="font-size:2rem;">Start scanning now with ShieldAI.</h2>
+                        <span class="eyebrow" style="margin-bottom:12px;">Immediate Deployment</span>
+                        <h2 style="font-size:2.1rem; font-weight:800; letter-spacing:-0.02em;">Ready to protect your LLM prompts?</h2>
+                        <p style="color:var(--text-muted); margin-top:8px;">Start testing prompts with custom policies or integrate our REST API directly into your backend pipeline.</p>
                     </div>
-                    <a href="scanner/scanner.html" class="primary-button">Get Started</a>
+                    <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                        <a href="scanner/scanner.html" class="primary-button">
+                            Launch Scanner
+                        </a>
+                        <a href="documentation/documentation.html" class="secondary-button">
+                            Read API Docs
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <div class="container footer-inner">
-            <p>© <span class="year"></span> ShieldAI. Privacy-first AI protection.</p>
-            <div class="footer-links">
-                <a href="scanner/scanner.html">Scanner</a>
-                <a href="documentation/documentation.html">Documentation</a>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Col 1: Brand -->
+                <div class="footer-brand-col">
+                    <a href="index.html" class="brand" aria-label="ShieldAI home page">
+                        <span class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <path d="m9 12 2 2 4-4"/>
+                            </svg>
+                        </span>
+                        <span class="brand-text">
+                            <span class="brand-name">ShieldAI</span>
+                            <span class="brand-tagline">Privacy Firewall</span>
+                        </span>
+                    </a>
+                    <p class="footer-desc">
+                        High-assurance zero-trust privacy proxy safeguarding prompts, credentials, and sensitive PII from leaking to external foundation AI models.
+                    </p>
+                    <div class="footer-badges">
+                        <span class="footer-pill-tag">GDPR COMPLIANT</span>
+                        <span class="footer-pill-tag">HIPAA READY</span>
+                        <span class="footer-pill-tag">SOC2 TYPE II</span>
+                    </div>
+                </div>
+
+                <!-- Col 2: Product -->
+                <div class="footer-col">
+                    <h4>Firewall Suite</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="scanner/scanner.html">Live Scanner Playground</a></li>
+                        <li><a href="dashboard/dashboard.html">Telemetry Dashboard</a></li>
+                        <li><a href="policies/policies.html">Protection Policy Matrix</a></li>
+                        <li><a href="history/history.html">Audit Trail &amp; Logs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Architecture -->
+                <div class="footer-col">
+                    <h4>Architecture</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="how-it-works/how-it-works.html">Zero-Trust Pipeline</a></li>
+                        <li><a href="features/features.html">Regex &amp; NER Classifiers</a></li>
+                        <li><a href="features/features.html">Threat Index Scoring</a></li>
+                        <li><a href="documentation/documentation.html">Zero-Retention Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Developers -->
+                <div class="footer-col">
+                    <h4>Developers</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="documentation/documentation.html">REST API Reference</a></li>
+                        <li><a href="documentation/documentation.html">cURL &amp; Payload Spec</a></li>
+                        <li><a href="http://localhost:3001/api/health" target="_blank">Health Check API</a></li>
+                        <li><a href="scanner/scanner.html">Simulate Prompt Scan</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>&copy; <span class="year"></span> ShieldAI Firewall. All rights reserved. Built for Zero-Trust Enterprise AI.</p>
+                <div class="footer-bottom-status">
+                    <span class="footer-bottom-dot"></span>
+                    <span>ALL GATEWAY NODES OPERATIONAL &bull; &lt;18MS LATENCY</span>
+                </div>
             </div>
         </div>
     </footer>

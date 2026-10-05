@@ -1,0 +1,9 @@
+{
+  "name": "pre-llm-privacy-firewall",
+  "version": "1.0.0",
+  "description": "Pre-LLM Privacy Firewall Gateway",
+  "scripts": {
+    "start": "npm --prefix backend start",
+    "dev": "npm --prefix backend run dev"
+  }
+}

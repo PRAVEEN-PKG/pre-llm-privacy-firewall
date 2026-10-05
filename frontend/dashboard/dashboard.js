@@ -34,24 +34,39 @@ function renderDashboard() {
 
     const activityList = document.getElementById("recentActivity");
     activityList.replaceChildren();
+
     if (!records.length) {
         const emptyMessage = document.createElement("li");
-        emptyMessage.textContent = "No recent activity.";
+        emptyMessage.className = "empty-state";
+        emptyMessage.textContent = "No recent activity recorded yet. Run a prompt scan to generate live telemetry.";
         activityList.appendChild(emptyMessage);
-        document.getElementById("securityStatus").textContent = "Monitoring healthy";
+        document.getElementById("securityStatus").textContent = "Monitoring healthy \u2022 Zero active exposures";
         return;
     }
 
-    records.slice(0, 5).forEach(function (item) {
+    records.slice(0, 6).forEach(function (item) {
         const activity = document.createElement("li");
-        const timestamp = item.time ? new Date(item.time).toLocaleString() : "Unknown time";
-        activity.textContent = timestamp + " — " + item.riskLevel + " risk, " + item.action;
+        const timeStr = item.time ? new Date(item.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : "Just now";
+        const isBlocked = item.action === "BLOCKED";
+        const isRedacted = item.action === "MASKED" || item.action === "REDACTED";
+        const dotColor = isBlocked ? "#f87171" : isRedacted ? "#fbbf24" : "#34d399";
+
+        activity.innerHTML = `
+            <span style="width:8px; height:8px; border-radius:50%; background:${dotColor}; box-shadow:0 0 6px ${dotColor}; flex-shrink:0;"></span>
+            <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-dim); min-width:65px;">${timeStr}</span>
+            <span style="flex:1; font-weight:500; color:#f1f5f9; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                ${item.detectedData && item.detectedData !== 'None' ? item.detectedData : 'Clean prompt'}
+            </span>
+            <span style="font-family:var(--font-mono); font-size:0.72rem; padding:2px 8px; border-radius:4px; font-weight:700; background:rgba(255,255,255,0.06); color:${dotColor};">
+                ${item.action} (${item.riskScore})
+            </span>
+        `;
         activityList.appendChild(activity);
     });
 
     document.getElementById("securityStatus").textContent = critical > 0
-        ? "Critical risk activity detected"
-        : high > 0 ? "High risk activity detected" : "Monitoring healthy";
+        ? "CRITICAL ALERT: Prompt breach attempts blocked"
+        : high > 0 ? "WARNING: High-risk PII exposure mitigated" : "Monitoring healthy \u2022 Zero active exposures";
 }
 
 document.addEventListener("DOMContentLoaded", renderDashboard);

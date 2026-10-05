@@ -1,22 +1,49 @@
-.page-hero {
-    padding: 110px 0 60px;
+.policies-hero {
+    padding-top: 60px;
+    padding-bottom: 25px;
     text-align: center;
 }
 
-.page-hero h1 {
-    font-size: clamp(2.2rem, 5vw, 4rem);
-    margin-bottom: 18px;
-}
-
-.page-hero p {
-    color: #cbd5e1;
-    line-height: 1.8;
-}
-
 .policies-section {
-    padding: 20px 0 100px;
+    padding-bottom: 90px;
 }
 
+/* Filter Bar */
+.policy-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.filter-chip {
+    appearance: none;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(15, 23, 42, 0.6);
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-chip:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.filter-chip.active {
+    background: rgba(56, 189, 248, 0.12);
+    border-color: rgba(56, 189, 248, 0.35);
+    color: var(--cyan);
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.15);
+}
+
+/* Grid */
 .policy-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -24,54 +51,119 @@
 }
 
 .policy-card {
-    padding: 22px 20px;
+    padding: 24px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-.policy-header {
+.policy-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(56, 189, 248, 0.3);
+}
+
+.policy-card.hidden {
+    display: none;
+}
+
+.policy-card-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
     margin-bottom: 12px;
+}
+
+.policy-ident {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .policy-type {
     font-size: 1.1rem;
-    font-weight: 700;
-    color: #f8fafc;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+}
+
+.rule-id {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-dim);
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .action {
     display: inline-flex;
-    padding: 7px 10px;
-    border-radius: 999px;
+    padding: 4px 10px;
+    border-radius: 6px;
     font-size: 0.72rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     font-weight: 700;
+    font-family: var(--font-mono);
 }
 
 .action-mask {
-    background: rgba(14, 165, 233, 0.12);
+    background: rgba(56, 189, 248, 0.1);
     color: #7dd3fc;
+    border: 1px solid rgba(56, 189, 248, 0.25);
 }
 
 .action-block {
-    background: rgba(239, 68, 68, 0.12);
-    color: #fca5a5;
+    background: rgba(244, 63, 94, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(244, 63, 94, 0.25);
 }
 
 .action-redact {
-    background: rgba(251, 191, 36, 0.12);
-    color: #fcd34d;
+    background: rgba(245, 158, 11, 0.1);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.25);
 }
 
-.policy-card p {
-    color: #cbd5e1;
-    line-height: 1.7;
+.policy-desc {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    margin-bottom: 18px;
+    flex-grow: 1;
 }
 
-@media (max-width: 760px) {
+.policy-desc code {
+    font-family: var(--font-mono);
+    color: var(--cyan);
+    background: rgba(56, 189, 248, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.84rem;
+}
+
+.policy-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.76rem;
+    font-family: var(--font-mono);
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.severity-tag.low { color: #34d399; }
+.severity-tag.medium { color: #fbbf24; }
+.severity-tag.high { color: #f87171; }
+
+.status-active {
+    color: var(--text-dim);
+}
+
+@media (max-width: 800px) {
     .policy-grid {
         grid-template-columns: 1fr;
     }

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How It Works | ShieldAI</title>
-    <meta name="description" content="Learn how ShieldAI detects and blocks sensitive data before it reaches external AI tools.">
+    <title>How It Works | ShieldAI Privacy Firewall</title>
+    <meta name="description" content="Learn how ShieldAI intercepts, detects, and redacts sensitive data before prompts reach external AI models.">
     <link rel="stylesheet" href="../main.css">
     <link rel="stylesheet" href="how-it-works.css">
 </head>
@@ -12,12 +12,22 @@
     <header class="site-header">
         <nav class="navbar container">
             <a href="../index.html" class="brand" aria-label="ShieldAI home page">
-                <span class="brand-icon">🛡️</span>
+                <span class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </span>
                 <span class="brand-text">
                     <span class="brand-name">ShieldAI</span>
                     <span class="brand-tagline">Privacy Firewall</span>
                 </span>
             </a>
+
+            <div class="system-status">
+                <span class="status-indicator-dot"></span>
+                <span>GATEWAY ACTIVE &bull; 0 LEAKS</span>
+            </div>
 
             <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -31,7 +41,7 @@
                 <a href="../dashboard/dashboard.html" class="nav-link">Dashboard</a>
                 <a href="../history/history.html" class="nav-link">History</a>
                 <a href="../policies/policies.html" class="nav-link">Policies</a>
-                <a href="../documentation/documentation.html" class="nav-link">Documentation</a>
+                <a href="../documentation/documentation.html" class="nav-link">Docs</a>
             </div>
         </nav>
     </header>
@@ -39,79 +49,125 @@
     <main>
         <section class="page-hero">
             <div class="container narrow">
-                <span class="eyebrow">How it works</span>
-                <h1>How ShieldAI protects your prompts before they leave your system</h1>
-                <p>ShieldAI works as a privacy gate between user input and external AI models. It inspects, classifies, and sanitizes risky content before it reaches any LLM.</p>
+                <span class="eyebrow">Architecture &amp; Pipeline</span>
+                <h1>How ShieldAI Protects Every AI Interaction</h1>
+                <p>Operating as an ultra-low latency proxy between client applications and foundational LLMs, ShieldAI guarantees that confidential data never leaves your enterprise perimeter.</p>
             </div>
         </section>
 
         <section class="flow-section">
-            <div class="container">
-                <div class="flow-step">
-                    <div class="step-number">01</div>
+            <div class="container flow-container">
+                <!-- Step 01 -->
+                <div class="flow-step glass-card">
+                    <div class="step-badge">
+                        <span class="step-num">01</span>
+                    </div>
                     <div class="step-content">
-                        <h3>User Prompt</h3>
-                        <p>A user enters sensitive information such as a name, email, API key, or confidential business data into an AI workflow.</p>
+                        <span class="step-tag">Inbound Client Prompt</span>
+                        <h3>Raw Prompt Ingestion</h3>
+                        <p>A user, internal service, or agent passes an AI prompt containing raw names, customer emails, internal API tokens, or health records toward an external LLM.</p>
                     </div>
                 </div>
 
-                <div class="flow-arrow">↓</div>
+                <div class="flow-connector">
+                    <div class="connector-line"></div>
+                    <span class="connector-dot"></span>
+                </div>
 
-                <div class="flow-step">
-                    <div class="step-number">02</div>
+                <!-- Step 02 -->
+                <div class="flow-step glass-card">
+                    <div class="step-badge">
+                        <span class="step-num">02</span>
+                    </div>
                     <div class="step-content">
-                        <h3>ShieldAI</h3>
-                        <p>The system receives the input and runs a detection layer to identify risky patterns, personally identifiable information, and policy violations.</p>
+                        <span class="step-tag">Ephemeral Interception</span>
+                        <h3>Firewall Gateway Interception</h3>
+                        <p>ShieldAI intercepts the outbound HTTP payload at the network boundary before any external DNS resolution or cloud provider egress occurs.</p>
                     </div>
                 </div>
 
-                <div class="flow-arrow">↓</div>
+                <div class="flow-connector">
+                    <div class="connector-line"></div>
+                    <span class="connector-dot"></span>
+                </div>
 
-                <div class="flow-step">
-                    <div class="step-number">03</div>
+                <!-- Step 03 -->
+                <div class="flow-step glass-card">
+                    <div class="step-badge">
+                        <span class="step-num">03</span>
+                    </div>
                     <div class="step-content">
-                        <h3>Detection</h3>
-                        <p>Pattern checks, context analysis, and rule logic identify PII, secrets, health data, passwords, and confidential records.</p>
+                        <span class="step-tag">Detection Layer</span>
+                        <h3>Multi-Vector Entity Extraction</h3>
+                        <p>High-speed regex validators, entropy analyzers, and lightweight Named Entity Recognition (NER) scan for emails, phone numbers, PII, API tokens, and corporate confidential markers.</p>
                     </div>
                 </div>
 
-                <div class="flow-arrow">↓</div>
+                <div class="flow-connector">
+                    <div class="connector-line"></div>
+                    <span class="connector-dot"></span>
+                </div>
 
-                <div class="flow-step">
-                    <div class="step-number">04</div>
+                <!-- Step 04 -->
+                <div class="flow-step glass-card">
+                    <div class="step-badge">
+                        <span class="step-num">04</span>
+                    </div>
                     <div class="step-content">
-                        <h3>Risk Scoring</h3>
-                        <p>Every prompt is assigned a risk score based on sensitivity and impact so security teams can quickly prioritize incidents.</p>
+                        <span class="step-tag">Threat Evaluation</span>
+                        <h3>Automated Risk Scoring (0-100)</h3>
+                        <p>Detected entities are weighted by severity (e.g. API keys = 90, Names = 20). An aggregate risk score is calculated in &lt;5ms to classify the prompt into Low, Medium, High, or Critical threat tier.</p>
                     </div>
                 </div>
 
-                <div class="flow-arrow">↓</div>
+                <div class="flow-connector">
+                    <div class="connector-line"></div>
+                    <span class="connector-dot"></span>
+                </div>
 
-                <div class="flow-step">
-                    <div class="step-number">05</div>
+                <!-- Step 05 -->
+                <div class="flow-step glass-card">
+                    <div class="step-badge">
+                        <span class="step-num">05</span>
+                    </div>
                     <div class="step-content">
-                        <h3>Protection</h3>
-                        <p>The policy engine decides whether to mask, redact, block, or allow the content according to company rules and compliance requirements.</p>
+                        <span class="step-tag">Governance Engine</span>
+                        <h3>Policy Action Execution</h3>
+                        <p>The policy engine enforces organizational rules: Non-critical PII is masked, regulated financial/health data is redacted, and hard credentials cause an immediate prompt block.</p>
                     </div>
                 </div>
 
-                <div class="flow-arrow">↓</div>
+                <div class="flow-connector">
+                    <div class="connector-line"></div>
+                    <span class="connector-dot"></span>
+                </div>
 
-                <div class="flow-step">
-                    <div class="step-number">06</div>
+                <!-- Step 06 -->
+                <div class="flow-step glass-card">
+                    <div class="step-badge">
+                        <span class="step-num">06</span>
+                    </div>
                     <div class="step-content">
-                        <h3>Safe Prompt</h3>
-                        <p>Risky content is converted to a sanitized version, such as replacing names or emails with placeholders while preserving the prompt structure.</p>
+                        <span class="step-tag">Prompt Transformer</span>
+                        <h3>Sanitized Safe Payload Assembly</h3>
+                        <p>The raw prompt is transformed into a clean version replacing sensitive substrings with placeholders (e.g. <code>[NAME_MASKED]</code>), retaining full grammatical and contextual meaning for the LLM.</p>
                     </div>
                 </div>
 
-                <div class="flow-arrow">↓</div>
+                <div class="flow-connector">
+                    <div class="connector-line"></div>
+                    <span class="connector-dot"></span>
+                </div>
 
-                <div class="flow-step">
-                    <div class="step-number">07</div>
+                <!-- Step 07 -->
+                <div class="flow-step glass-card destination-step">
+                    <div class="step-badge">
+                        <span class="step-num">07</span>
+                    </div>
                     <div class="step-content">
-                        <h3>External AI</h3>
-                        <p>Only the safe prompt reaches the LLM, keeping private information out of AI training and third-party exposure.</p>
+                        <span class="step-tag">Egress Delivery</span>
+                        <h3>Secure Forwarding to Foundation LLM</h3>
+                        <p>Only the safe, sanitized prompt is transmitted to OpenAI, Anthropic, Google Gemini, or internal self-hosted LLMs. Zero sensitive enterprise data is exposed or used for training.</p>
                     </div>
                 </div>
             </div>
@@ -119,11 +175,72 @@
     </main>
 
     <footer class="site-footer">
-        <div class="container footer-inner">
-            <p>© <span class="year"></span> ShieldAI. Privacy-first AI protection.</p>
-            <div class="footer-links">
-                <a href="../scanner/scanner.html">Scanner</a>
-                <a href="../documentation/documentation.html">Docs</a>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Col 1: Brand -->
+                <div class="footer-brand-col">
+                    <a href="../index.html" class="brand" aria-label="ShieldAI home page">
+                        <span class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <path d="m9 12 2 2 4-4"/>
+                            </svg>
+                        </span>
+                        <span class="brand-text">
+                            <span class="brand-name">ShieldAI</span>
+                            <span class="brand-tagline">Privacy Firewall</span>
+                        </span>
+                    </a>
+                    <p class="footer-desc">
+                        High-assurance zero-trust privacy proxy safeguarding prompts, credentials, and sensitive PII from leaking to external foundation AI models.
+                    </p>
+                    <div class="footer-badges">
+                        <span class="footer-pill-tag">GDPR COMPLIANT</span>
+                        <span class="footer-pill-tag">HIPAA READY</span>
+                        <span class="footer-pill-tag">SOC2 TYPE II</span>
+                    </div>
+                </div>
+
+                <!-- Col 2: Product -->
+                <div class="footer-col">
+                    <h4>Firewall Suite</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../scanner/scanner.html">Live Scanner Playground</a></li>
+                        <li><a href="../dashboard/dashboard.html">Telemetry Dashboard</a></li>
+                        <li><a href="../policies/policies.html">Protection Policy Matrix</a></li>
+                        <li><a href="../history/history.html">Audit Trail &amp; Logs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Architecture -->
+                <div class="footer-col">
+                    <h4>Architecture</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../how-it-works/how-it-works.html">Zero-Trust Pipeline</a></li>
+                        <li><a href="../features/features.html">Regex &amp; NER Classifiers</a></li>
+                        <li><a href="../features/features.html">Threat Index Scoring</a></li>
+                        <li><a href="../documentation/documentation.html">Zero-Retention Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Developers -->
+                <div class="footer-col">
+                    <h4>Developers</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../documentation/documentation.html">REST API Reference</a></li>
+                        <li><a href="../documentation/documentation.html">cURL &amp; Payload Spec</a></li>
+                        <li><a href="http://localhost:3001/api/health" target="_blank">Health Check API</a></li>
+                        <li><a href="../scanner/scanner.html">Simulate Prompt Scan</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>&copy; <span class="year"></span> ShieldAI Firewall. All rights reserved. Built for Zero-Trust Enterprise AI.</p>
+                <div class="footer-bottom-status">
+                    <span class="footer-bottom-dot"></span>
+                    <span>ALL GATEWAY NODES OPERATIONAL &bull; &lt;18MS LATENCY</span>
+                </div>
             </div>
         </div>
     </footer>

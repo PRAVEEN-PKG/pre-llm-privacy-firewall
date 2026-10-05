@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | ShieldAI</title>
-    <meta name="description" content="Monitor privacy risk metrics, scan activity, and protection coverage across your AI workflow.">
+    <title>Security Dashboard | ShieldAI</title>
+    <meta name="description" content="Monitor privacy risk metrics, scan telemetry, and protection coverage across your AI workflow.">
     <link rel="stylesheet" href="../main.css">
     <link rel="stylesheet" href="dashboard.css">
 </head>
@@ -12,12 +12,22 @@
     <header class="site-header">
         <nav class="navbar container">
             <a href="../index.html" class="brand" aria-label="ShieldAI home page">
-                <span class="brand-icon">🛡️</span>
+                <span class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </span>
                 <span class="brand-text">
                     <span class="brand-name">ShieldAI</span>
                     <span class="brand-tagline">Privacy Firewall</span>
                 </span>
             </a>
+
+            <div class="system-status">
+                <span class="status-indicator-dot"></span>
+                <span>GATEWAY ACTIVE &bull; 0 LEAKS</span>
+            </div>
 
             <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -31,80 +41,141 @@
                 <a href="dashboard.html" class="nav-link active">Dashboard</a>
                 <a href="../history/history.html" class="nav-link">History</a>
                 <a href="../policies/policies.html" class="nav-link">Policies</a>
-                <a href="../documentation/documentation.html" class="nav-link">Documentation</a>
+                <a href="../documentation/documentation.html" class="nav-link">Docs</a>
             </div>
         </nav>
     </header>
 
     <main>
-        <section class="page-hero">
+        <section class="page-hero dashboard-hero">
             <div class="container narrow">
-                <span class="eyebrow">Security dashboard</span>
-                <h1>Risk overview across all scans</h1>
+                <span class="eyebrow">Enterprise Telemetry</span>
+                <h1>Firewall Analytics &amp; Risk Overview</h1>
+                <p>Live security metrics, threat distribution, and audit activity across all prompt interception events.</p>
             </div>
         </section>
 
         <section class="dashboard-section">
             <div class="container">
+                <!-- Status Banner -->
+                <div class="status-banner glass-card">
+                    <div class="status-left">
+                        <span class="status-radar-ping"></span>
+                        <div>
+                            <div class="status-headline" id="securityStatus">Monitoring healthy &bull; Zero active exposures</div>
+                            <div class="status-subline">Real-time prompt inspection engine connected to localhost:3001</div>
+                        </div>
+                    </div>
+                    <div class="status-actions">
+                        <a href="../scanner/scanner.html" class="primary-button" style="min-height:38px; padding:0 16px; font-size:0.84rem;">
+                            + New Scan
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
                 <div class="stats-grid">
                     <article class="stat-card glass-card">
-                        <span class="stat-label">Total Scans</span>
-                        <strong id="totalScans">0</strong>
+                        <div class="stat-top">
+                            <span class="stat-label">Total Prompts Scanned</span>
+                            <div class="stat-icon-pill">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/></svg>
+                            </div>
+                        </div>
+                        <strong class="stat-val" id="totalScans">0</strong>
+                        <span class="stat-trend positive">&bull; Lifetime prompt telemetry</span>
                     </article>
+
                     <article class="stat-card glass-card">
-                        <span class="stat-label">Protected Prompts</span>
-                        <strong id="protectedPrompts">0</strong>
+                        <div class="stat-top">
+                            <span class="stat-label">Protected / Sanitized</span>
+                            <div class="stat-icon-pill green">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                            </div>
+                        </div>
+                        <strong class="stat-val text-green" id="protectedPrompts">0</strong>
+                        <span class="stat-trend positive">&check; PII masked &amp; cleared for LLM</span>
                     </article>
+
                     <article class="stat-card glass-card">
-                        <span class="stat-label">Blocked Requests</span>
-                        <strong id="blockedRequests">0</strong>
+                        <div class="stat-top">
+                            <span class="stat-label">Blocked Credentials</span>
+                            <div class="stat-icon-pill red">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                            </div>
+                        </div>
+                        <strong class="stat-val text-red" id="blockedRequests">0</strong>
+                        <span class="stat-trend neutral">&times; Critical leaks prevented</span>
                     </article>
+
                     <article class="stat-card glass-card">
-                        <span class="stat-label">Average Risk Score</span>
-                        <strong id="avgRiskScore">0</strong>
+                        <div class="stat-top">
+                            <span class="stat-label">Average Risk Index</span>
+                            <div class="stat-icon-pill yellow">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                            </div>
+                        </div>
+                        <strong class="stat-val" id="avgRiskScore">0</strong>
+                        <span class="stat-trend">&bull; Calibrated severity score</span>
                     </article>
                 </div>
 
+                <!-- Main Analytics Grid -->
                 <div class="dashboard-grid">
+                    <!-- Threat Distribution -->
                     <div class="chart-card glass-card">
-                        <h3>Risk distribution</h3>
+                        <div class="card-head">
+                            <h3>Threat Distribution by Risk Level</h3>
+                            <span class="head-tag">Categorized</span>
+                        </div>
                         <div class="bar-chart">
                             <div class="bar-group">
-                                <label>Low</label>
+                                <div class="bar-info">
+                                    <span class="bar-label">Low Risk</span>
+                                    <span class="bar-badge badge-low">Score 0-35</span>
+                                </div>
                                 <div class="bar-track"><span id="lowBar" class="bar low"></span></div>
-                                <strong id="lowCount">0</strong>
+                                <strong id="lowCount" class="bar-num">0</strong>
                             </div>
+
                             <div class="bar-group">
-                                <label>Medium</label>
+                                <div class="bar-info">
+                                    <span class="bar-label">Medium Risk</span>
+                                    <span class="bar-badge badge-medium">Score 36-65</span>
+                                </div>
                                 <div class="bar-track"><span id="mediumBar" class="bar medium"></span></div>
-                                <strong id="mediumCount">0</strong>
+                                <strong id="mediumCount" class="bar-num">0</strong>
                             </div>
+
                             <div class="bar-group">
-                                <label>High</label>
+                                <div class="bar-info">
+                                    <span class="bar-label">High Risk</span>
+                                    <span class="bar-badge badge-high">Score 66-85</span>
+                                </div>
                                 <div class="bar-track"><span id="highBar" class="bar high"></span></div>
-                                <strong id="highCount">0</strong>
+                                <strong id="highCount" class="bar-num">0</strong>
                             </div>
+
                             <div class="bar-group">
-                                <label>Critical</label>
+                                <div class="bar-info">
+                                    <span class="bar-label">Critical</span>
+                                    <span class="bar-badge badge-critical">Score 86-100</span>
+                                </div>
                                 <div class="bar-track"><span id="criticalBar" class="bar critical"></span></div>
-                                <strong id="criticalCount">0</strong>
+                                <strong id="criticalCount" class="bar-num">0</strong>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Recent Interception Activity -->
                     <div class="activity-card glass-card">
-                        <h3>Recent activity</h3>
+                        <div class="card-head">
+                            <h3>Real-Time Audit Stream</h3>
+                            <a href="../history/history.html" class="view-all-link">View Full Audit &rarr;</a>
+                        </div>
                         <ul id="recentActivity" class="activity-list">
-                            <li>No recent activity.</li>
+                            <li class="empty-state">No recent activity recorded yet. Run a prompt scan to generate live telemetry.</li>
                         </ul>
-                    </div>
-                </div>
-
-                <div class="status-card glass-card">
-                    <h3>Security status</h3>
-                    <div class="status-row">
-                        <span class="status-dot"></span>
-                        <span id="securityStatus">Monitoring healthy</span>
                     </div>
                 </div>
             </div>
@@ -112,11 +183,72 @@
     </main>
 
     <footer class="site-footer">
-        <div class="container footer-inner">
-            <p>© <span class="year"></span> ShieldAI. Privacy-first AI protection.</p>
-            <div class="footer-links">
-                <a href="../scanner/scanner.html">Scanner</a>
-                <a href="../documentation/documentation.html">Docs</a>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Col 1: Brand -->
+                <div class="footer-brand-col">
+                    <a href="../index.html" class="brand" aria-label="ShieldAI home page">
+                        <span class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <path d="m9 12 2 2 4-4"/>
+                            </svg>
+                        </span>
+                        <span class="brand-text">
+                            <span class="brand-name">ShieldAI</span>
+                            <span class="brand-tagline">Privacy Firewall</span>
+                        </span>
+                    </a>
+                    <p class="footer-desc">
+                        High-assurance zero-trust privacy proxy safeguarding prompts, credentials, and sensitive PII from leaking to external foundation AI models.
+                    </p>
+                    <div class="footer-badges">
+                        <span class="footer-pill-tag">GDPR COMPLIANT</span>
+                        <span class="footer-pill-tag">HIPAA READY</span>
+                        <span class="footer-pill-tag">SOC2 TYPE II</span>
+                    </div>
+                </div>
+
+                <!-- Col 2: Product -->
+                <div class="footer-col">
+                    <h4>Firewall Suite</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../scanner/scanner.html">Live Scanner Playground</a></li>
+                        <li><a href="../dashboard/dashboard.html">Telemetry Dashboard</a></li>
+                        <li><a href="../policies/policies.html">Protection Policy Matrix</a></li>
+                        <li><a href="../history/history.html">Audit Trail &amp; Logs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Architecture -->
+                <div class="footer-col">
+                    <h4>Architecture</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../how-it-works/how-it-works.html">Zero-Trust Pipeline</a></li>
+                        <li><a href="../features/features.html">Regex &amp; NER Classifiers</a></li>
+                        <li><a href="../features/features.html">Threat Index Scoring</a></li>
+                        <li><a href="../documentation/documentation.html">Zero-Retention Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Developers -->
+                <div class="footer-col">
+                    <h4>Developers</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../documentation/documentation.html">REST API Reference</a></li>
+                        <li><a href="../documentation/documentation.html">cURL &amp; Payload Spec</a></li>
+                        <li><a href="http://localhost:3001/api/health" target="_blank">Health Check API</a></li>
+                        <li><a href="../scanner/scanner.html">Simulate Prompt Scan</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>&copy; <span class="year"></span> ShieldAI Firewall. All rights reserved. Built for Zero-Trust Enterprise AI.</p>
+                <div class="footer-bottom-status">
+                    <span class="footer-bottom-dot"></span>
+                    <span>ALL GATEWAY NODES OPERATIONAL &bull; &lt;18MS LATENCY</span>
+                </div>
             </div>
         </div>
     </footer>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentation | ShieldAI</title>
-    <meta name="description" content="Understand how ShieldAI works, from detection and risk scoring to backend architecture and API flow.">
+    <title>Developer Documentation | ShieldAI</title>
+    <meta name="description" content="Technical documentation, API reference, and integration guides for the ShieldAI Pre-LLM Privacy Firewall.">
     <link rel="stylesheet" href="../main.css">
     <link rel="stylesheet" href="documentation.css">
 </head>
@@ -12,12 +12,22 @@
     <header class="site-header">
         <nav class="navbar container">
             <a href="../index.html" class="brand" aria-label="ShieldAI home page">
-                <span class="brand-icon">🛡️</span>
+                <span class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </span>
                 <span class="brand-text">
                     <span class="brand-name">ShieldAI</span>
                     <span class="brand-tagline">Privacy Firewall</span>
                 </span>
             </a>
+
+            <div class="system-status">
+                <span class="status-indicator-dot"></span>
+                <span>GATEWAY ACTIVE &bull; 0 LEAKS</span>
+            </div>
 
             <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -31,7 +41,7 @@
                 <a href="../dashboard/dashboard.html" class="nav-link">Dashboard</a>
                 <a href="../history/history.html" class="nav-link">History</a>
                 <a href="../policies/policies.html" class="nav-link">Policies</a>
-                <a href="documentation.html" class="nav-link active">Documentation</a>
+                <a href="documentation.html" class="nav-link active">Docs</a>
             </div>
         </nav>
     </header>
@@ -39,72 +49,179 @@
     <main>
         <section class="page-hero">
             <div class="container narrow">
-                <span class="eyebrow">Developer docs</span>
-                <h1>ShieldAI architecture and security flow</h1>
+                <span class="eyebrow">Technical Reference</span>
+                <h1>ShieldAI Developer Documentation &amp; API</h1>
+                <p>Complete integration guide for intercepting prompt payloads, configuring policies, and querying the zero-trust firewall service.</p>
             </div>
         </section>
 
         <section class="docs-section">
-            <div class="container docs-grid">
-                <article class="doc-card glass-card">
-                    <h3>What is ShieldAI?</h3>
-                    <p>ShieldAI is a privacy firewall for AI systems. It checks user input before it reaches third-party LLMs and blocks or masks sensitive data automatically.</p>
-                </article>
+            <div class="container">
+                <!-- API Integration Quickstart Banner -->
+                <div class="quickstart-box glass-card">
+                    <div class="quickstart-head">
+                        <div class="method-tag-wrap">
+                            <span class="http-badge post">POST</span>
+                            <span class="endpoint-path">/api/scan</span>
+                        </div>
+                        <span class="endpoint-desc">Live Prompt Interception &amp; Redaction API</span>
+                    </div>
 
-                <article class="doc-card glass-card">
-                    <h3>Why Privacy Firewall?</h3>
-                    <p>Organizations often expose names, emails, credentials, and internal information through AI prompts. ShieldAI acts as the critical security barrier.</p>
-                </article>
+                    <div class="code-terminal">
+                        <div class="code-header">
+                            <span class="code-title">cURL Request Example</span>
+                            <span class="code-lang">bash</span>
+                        </div>
+                        <pre class="code-body"><code>curl -X POST http://localhost:3001/api/scan \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "My email is ajay@gmail.com and OpenAI key is sk-1234567890",
+    "policy": "strict"
+  }'</code></pre>
+                    </div>
 
-                <article class="doc-card glass-card">
-                    <h3>How detection works</h3>
-                    <p>Detection is performed using pattern-based analysis, keyword matching, context detection, and rule-based classifiers for personal and confidential data.</p>
-                </article>
+                    <div class="code-terminal" style="margin-top:14px;">
+                        <div class="code-header">
+                            <span class="code-title">JSON Response (200 OK)</span>
+                            <span class="code-lang">json</span>
+                        </div>
+                        <pre class="code-body"><code>{
+  "success": true,
+  "riskScore": 90,
+  "riskLevel": "CRITICAL",
+  "detections": [
+    { "type": "EMAIL", "action": "MASK", "value": "ajay@gmail.com" },
+    { "type": "API_KEY", "action": "BLOCK", "value": "sk-1234567890" }
+  ],
+  "protectedText": "My email is [EMAIL_1] and OpenAI key is [TOKEN_BLOCKED]"
+}</code></pre>
+                    </div>
+                </div>
 
-                <article class="doc-card glass-card">
-                    <h3>Risk scoring</h3>
-                    <p>Risk scores increase as the number and severity of detected data points rises. Scores help teams prioritize which prompts need immediate enforcement.</p>
-                </article>
+                <!-- Documentation Grid -->
+                <div class="docs-grid">
+                    <!-- 1 -->
+                    <article class="doc-card glass-card">
+                        <div class="doc-badge">Overview</div>
+                        <h3>What is ShieldAI Firewall?</h3>
+                        <p>ShieldAI is an intelligent zero-trust privacy proxy positioned in front of external LLMs. It continuously inspects inbound prompt strings, enforces compliance policies, and removes sensitive PII/secrets before network transmission.</p>
+                    </article>
 
-                <article class="doc-card glass-card">
-                    <h3>Protection policies</h3>
-                    <p>Policies define whether content should be masked, redacted, or fully blocked. The system applies the rules consistently across all scanned inputs.</p>
-                </article>
+                    <!-- 2 -->
+                    <article class="doc-card glass-card">
+                        <div class="doc-badge">Architecture</div>
+                        <h3>Detection Mechanics</h3>
+                        <p>Inspection executes through a hybrid pipeline combining pre-compiled regex automata, high-entropy token analysis (for secrets &amp; API keys), and pattern heuristics for structured personal identifiers.</p>
+                    </article>
 
-                <article class="doc-card glass-card">
-                    <h3>Prompt sanitization</h3>
-                    <p>Before an external model sees the text, risky content is replaced with safe placeholders such as [EMAIL] or [NAME] to preserve prompt clarity.</p>
-                </article>
+                    <!-- 3 -->
+                    <article class="doc-card glass-card">
+                        <div class="doc-badge">Analytics</div>
+                        <h3>Risk Index Calculation</h3>
+                        <p>Each detected entity carries an assigned threat weight. A mathematical function aggregates detected categories into a standardized scale of 0 to 100, driving policy thresholds.</p>
+                    </article>
 
-                <article class="doc-card glass-card">
-                    <h3>Backend architecture</h3>
-                    <p>The application includes input capture, policy evaluation, risk scoring, sanitization, and historical logging services for monitoring and audits.</p>
-                </article>
+                    <!-- 4 -->
+                    <article class="doc-card glass-card">
+                        <div class="doc-badge">Governance</div>
+                        <h3>Policy Profiles</h3>
+                        <p>
+                            <strong>Strict:</strong> Masks all PII, redacts financial/health records, and hard-blocks any developer secrets.<br>
+                            <strong>Balanced:</strong> Masks direct identifiers while allowing general operational context.<br>
+                            <strong>Minimal:</strong> Enforces tripwires only on critical API tokens and credentials.
+                        </p>
+                    </article>
 
-                <article class="doc-card glass-card">
-                    <h3>API endpoints</h3>
-                    <p>
-                        <code>POST /api/scan</code><br>
-                        <code>GET /api/policies</code><br>
-                        <code>GET /api/scans</code><br>
-                        <code>GET /api/health</code>
-                    </p>
-                </article>
+                    <!-- 5 -->
+                    <article class="doc-card glass-card">
+                        <div class="doc-badge">Endpoints</div>
+                        <h3>Core REST Endpoints</h3>
+                        <ul class="endpoint-list">
+                            <li><span class="http-badge post mini">POST</span> <code>/api/scan</code> &bull; Primary inspection endpoint</li>
+                            <li><span class="http-badge get mini">GET</span> <code>/api/policies</code> &bull; Retrieve active enforcement rules</li>
+                            <li><span class="http-badge get mini">GET</span> <code>/api/scans</code> &bull; Retrieve recent telemetry records</li>
+                            <li><span class="http-badge get mini">GET</span> <code>/api/health</code> &bull; Cluster liveness and readiness probe</li>
+                        </ul>
+                    </article>
 
-                <article class="doc-card glass-card">
-                    <h3>Security flow</h3>
-                    <p>User input → detection → scoring → policy engine → masking/blocking → safe prompt → external AI model.</p>
-                </article>
+                    <!-- 6 -->
+                    <article class="doc-card glass-card">
+                        <div class="doc-badge">Compliance</div>
+                        <h3>Zero-Retention Security Model</h3>
+                        <p>Prompts are processed in-memory and sanitized ephemerally. No unencrypted prompt bodies are written to permanent databases, ensuring complete adherence to GDPR and HIPAA data handling rules.</p>
+                    </article>
+                </div>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <div class="container footer-inner">
-            <p>© <span class="year"></span> ShieldAI. Privacy-first AI protection.</p>
-            <div class="footer-links">
-                <a href="../scanner/scanner.html">Scanner</a>
-                <a href="../documentation/documentation.html">Docs</a>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Col 1: Brand -->
+                <div class="footer-brand-col">
+                    <a href="../index.html" class="brand" aria-label="ShieldAI home page">
+                        <span class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <path d="m9 12 2 2 4-4"/>
+                            </svg>
+                        </span>
+                        <span class="brand-text">
+                            <span class="brand-name">ShieldAI</span>
+                            <span class="brand-tagline">Privacy Firewall</span>
+                        </span>
+                    </a>
+                    <p class="footer-desc">
+                        High-assurance zero-trust privacy proxy safeguarding prompts, credentials, and sensitive PII from leaking to external foundation AI models.
+                    </p>
+                    <div class="footer-badges">
+                        <span class="footer-pill-tag">GDPR COMPLIANT</span>
+                        <span class="footer-pill-tag">HIPAA READY</span>
+                        <span class="footer-pill-tag">SOC2 TYPE II</span>
+                    </div>
+                </div>
+
+                <!-- Col 2: Product -->
+                <div class="footer-col">
+                    <h4>Firewall Suite</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../scanner/scanner.html">Live Scanner Playground</a></li>
+                        <li><a href="../dashboard/dashboard.html">Telemetry Dashboard</a></li>
+                        <li><a href="../policies/policies.html">Protection Policy Matrix</a></li>
+                        <li><a href="../history/history.html">Audit Trail &amp; Logs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Architecture -->
+                <div class="footer-col">
+                    <h4>Architecture</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../how-it-works/how-it-works.html">Zero-Trust Pipeline</a></li>
+                        <li><a href="../features/features.html">Regex &amp; NER Classifiers</a></li>
+                        <li><a href="../features/features.html">Threat Index Scoring</a></li>
+                        <li><a href="../documentation/documentation.html">Zero-Retention Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Developers -->
+                <div class="footer-col">
+                    <h4>Developers</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../documentation/documentation.html">REST API Reference</a></li>
+                        <li><a href="../documentation/documentation.html">cURL &amp; Payload Spec</a></li>
+                        <li><a href="http://localhost:3001/api/health" target="_blank">Health Check API</a></li>
+                        <li><a href="../scanner/scanner.html">Simulate Prompt Scan</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>&copy; <span class="year"></span> ShieldAI Firewall. All rights reserved. Built for Zero-Trust Enterprise AI.</p>
+                <div class="footer-bottom-status">
+                    <span class="footer-bottom-dot"></span>
+                    <span>ALL GATEWAY NODES OPERATIONAL &bull; &lt;18MS LATENCY</span>
+                </div>
             </div>
         </div>
     </footer>

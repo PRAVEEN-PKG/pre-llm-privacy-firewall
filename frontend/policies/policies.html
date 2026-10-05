@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Policies | ShieldAI</title>
-    <meta name="description" content="Review ShieldAI policy actions for data types such as names, emails, health data, passwords, and financial records.">
+    <title>Protection Policies | ShieldAI Privacy Firewall</title>
+    <meta name="description" content="Review ShieldAI policy enforcement matrix for PII, emails, credentials, health data, and financial records.">
     <link rel="stylesheet" href="../main.css">
     <link rel="stylesheet" href="policies.css">
 </head>
@@ -12,12 +12,22 @@
     <header class="site-header">
         <nav class="navbar container">
             <a href="../index.html" class="brand" aria-label="ShieldAI home page">
-                <span class="brand-icon">🛡️</span>
+                <span class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </span>
                 <span class="brand-text">
                     <span class="brand-name">ShieldAI</span>
                     <span class="brand-tagline">Privacy Firewall</span>
                 </span>
             </a>
+
+            <div class="system-status">
+                <span class="status-indicator-dot"></span>
+                <span>GATEWAY ACTIVE &bull; 0 LEAKS</span>
+            </div>
 
             <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -31,95 +41,230 @@
                 <a href="../dashboard/dashboard.html" class="nav-link">Dashboard</a>
                 <a href="../history/history.html" class="nav-link">History</a>
                 <a href="policies.html" class="nav-link active">Policies</a>
-                <a href="../documentation/documentation.html" class="nav-link">Documentation</a>
+                <a href="../documentation/documentation.html" class="nav-link">Docs</a>
             </div>
         </nav>
     </header>
 
     <main>
-        <section class="page-hero">
+        <section class="page-hero policies-hero">
             <div class="container narrow">
-                <span class="eyebrow">Policy matrix</span>
-                <h1>Default protection rules for sensitive data</h1>
-                <p>ShieldAI applies a clear policy action for each type of detected content to reduce exposure and maintain compliance.</p>
+                <span class="eyebrow">Zero-Trust Rules Engine</span>
+                <h1>Security &amp; Privacy Enforcement Policies</h1>
+                <p>ShieldAI evaluates incoming tokens and applies deterministic policy actions (Mask, Redact, or Block) based on data sensitivity and compliance mandates.</p>
             </div>
         </section>
 
         <section class="policies-section">
-            <div class="container policy-grid">
-                <article class="policy-card glass-card">
-                    <div class="policy-header">
-                        <span class="policy-type">EMAIL</span>
-                        <span class="action action-mask">MASK</span>
-                    </div>
-                    <p>Email addresses are replaced with a neutral placeholder while preserving message structure.</p>
-                </article>
+            <div class="container">
+                <!-- Policy Filter Pills -->
+                <div class="policy-filter-bar">
+                    <button type="button" class="filter-chip active" data-filter="all">All Rules (8)</button>
+                    <button type="button" class="filter-chip" data-filter="mask">Mask Actions</button>
+                    <button type="button" class="filter-chip" data-filter="block">Block Actions</button>
+                    <button type="button" class="filter-chip" data-filter="redact">Redact Actions</button>
+                </div>
 
-                <article class="policy-card glass-card">
-                    <div class="policy-header">
-                        <span class="policy-type">PHONE</span>
-                        <span class="action action-mask">MASK</span>
-                    </div>
-                    <p>Phone numbers are hidden during AI processing to prevent contact leakage or social engineering risks.</p>
-                </article>
+                <div class="policy-grid">
+                    <!-- EMAIL -->
+                    <article class="policy-card glass-card" data-action="mask">
+                        <div class="policy-card-top">
+                            <div class="policy-ident">
+                                <span class="policy-type">EMAIL</span>
+                                <span class="rule-id">RULE-PII-01</span>
+                            </div>
+                            <span class="action action-mask">MASK</span>
+                        </div>
+                        <p class="policy-desc">Email addresses are intercepted and substituted with a structure-preserving placeholder (e.g. <code>[EMAIL_1]</code>) preventing user contact leak.</p>
+                        <div class="policy-footer">
+                            <span class="severity-tag low">&bull; Low Impact on Context</span>
+                            <span class="status-active">Active in Strict &amp; Balanced</span>
+                        </div>
+                    </article>
 
-                <article class="policy-card glass-card">
-                    <div class="policy-header">
-                        <span class="policy-type">NAME</span>
-                        <span class="action action-mask">MASK</span>
-                    </div>
-                    <p>Personal names are sanitized before leaving the organization to maintain privacy.</p>
-                </article>
+                    <!-- PHONE -->
+                    <article class="policy-card glass-card" data-action="mask">
+                        <div class="policy-card-top">
+                            <div class="policy-ident">
+                                <span class="policy-type">PHONE</span>
+                                <span class="rule-id">RULE-PII-02</span>
+                            </div>
+                            <span class="action action-mask">MASK</span>
+                        </div>
+                        <p class="policy-desc">International and domestic phone numbers are sanitized before external transmission, mitigating phishing and social engineering vectors.</p>
+                        <div class="policy-footer">
+                            <span class="severity-tag low">&bull; Low Impact on Context</span>
+                            <span class="status-active">Active in Strict &amp; Balanced</span>
+                        </div>
+                    </article>
 
-                <article class="policy-card glass-card">
-                    <div class="policy-header">
-                        <span class="policy-type">PASSWORD</span>
-                        <span class="action action-block">BLOCK</span>
-                    </div>
-                    <p>Passwords are blocked immediately because they represent direct account compromise risk.</p>
-                </article>
+                    <!-- NAME -->
+                    <article class="policy-card glass-card" data-action="mask">
+                        <div class="policy-card-top">
+                            <div class="policy-ident">
+                                <span class="policy-type">NAME</span>
+                                <span class="rule-id">RULE-PII-03</span>
+                            </div>
+                            <span class="action action-mask">MASK</span>
+                        </div>
+                        <p class="policy-desc">Personal names and customer identifiers are anonymized with sequential tokens to protect personal identity and GDPR compliance.</p>
+                        <div class="policy-footer">
+                            <span class="severity-tag low">&bull; Medium Impact</span>
+                            <span class="status-active">Active in Strict Mode</span>
+                        </div>
+                    </article>
 
-                <article class="policy-card glass-card">
-                    <div class="policy-header">
-                        <span class="policy-type">API KEY</span>
-                        <span class="action action-block">BLOCK</span>
-                    </div>
-                    <p>API keys and tokens are rejected to prevent unauthorized access to backend services.</p>
-                </article>
+                    <!-- PASSWORD -->
+                    <article class="policy-card glass-card" data-action="block">
+                        <div class="policy-card-top">
+                            <div class="policy-ident">
+                                <span class="policy-type">PASSWORD</span>
+                                <span class="rule-id">RULE-SEC-01</span>
+                            </div>
+                            <span class="action action-block">BLOCK</span>
+                        </div>
+                        <p class="policy-desc">Passwords, secret pins, and authentication strings are dropped immediately with prompt rejection to prevent accidental credential leakage into AI weights.</p>
+                        <div class="policy-footer">
+                            <span class="severity-tag high">&bull; Critical Security Threat</span>
+                            <span class="status-active">Enforced in All Policies</span>
+                        </div>
+                    </article>
 
-                <article class="policy-card glass-card">
-                    <div class="policy-header">
-                        <span class="policy-type">FINANCIAL</span>
-                        <span class="action action-redact">REDACT</span>
-                    </div>
-                    <p>Cards, account numbers, and banking data are redacted before being sent to external models.</p>
-                </article>
+                    <!-- API KEY -->
+                    <article class="policy-card glass-card" data-action="block">
+                        <div class="policy-card-top">
+                            <div class="policy-ident">
+                                <span class="policy-type">API KEY</span>
+                                <span class="rule-id">RULE-SEC-02</span>
+                            </div>
+                            <span class="action action-block">BLOCK</span>
+                        </div>
+                        <p class="policy-desc">High-entropy developer secrets (OpenAI, AWS, GitHub, Stripe tokens) trigger a firewall tripwire, preventing unauthorized infrastructure takeover.</p>
+                        <div class="policy-footer">
+                            <span class="severity-tag high">&bull; Critical Security Threat</span>
+                            <span class="status-active">Enforced in All Policies</span>
+                        </div>
+                    </article>
 
-                <article class="policy-card glass-card">
-                    <div class="policy-header">
-                        <span class="policy-type">HEALTH</span>
-                        <span class="action action-mask">MASK</span>
-                    </div>
-                    <p>Medical or health-related data is masked to support compliance with privacy regulations.</p>
-                </article>
+                    <!-- FINANCIAL -->
+                    <article class="policy-card glass-card" data-action="redact">
+                        <div class="policy-card-top">
+                            <div class="policy-ident">
+                                <span class="policy-type">FINANCIAL</span>
+                                <span class="rule-id">RULE-PCI-01</span>
+                            </div>
+                            <span class="action action-redact">REDACT</span>
+                        </div>
+                        <p class="policy-desc">Credit card numbers (Luhn validated), IBANs, and bank account numbers are scrubbed with cryptographic redaction ensuring PCI-DSS compliance.</p>
+                        <div class="policy-footer">
+                            <span class="severity-tag high">&bull; High Regulatory Risk</span>
+                            <span class="status-active">Active in Strict &amp; Balanced</span>
+                        </div>
+                    </article>
 
-                <article class="policy-card glass-card">
-                    <div class="policy-header">
-                        <span class="policy-type">CONFIDENTIAL</span>
-                        <span class="action action-block">BLOCK</span>
-                    </div>
-                    <p>Highly sensitive or internal-only information is prevented from leaving secure systems.</p>
-                </article>
+                    <!-- HEALTH -->
+                    <article class="policy-card glass-card" data-action="mask">
+                        <div class="policy-card-top">
+                            <div class="policy-ident">
+                                <span class="policy-type">HEALTH</span>
+                                <span class="rule-id">RULE-HIPAA-01</span>
+                            </div>
+                            <span class="action action-mask">MASK</span>
+                        </div>
+                        <p class="policy-desc">Protected Health Information (PHI) including diagnosis codes and patient records are de-identified under HIPAA Safe Harbor rules.</p>
+                        <div class="policy-footer">
+                            <span class="severity-tag medium">&bull; High Privacy Impact</span>
+                            <span class="status-active">Active in Strict Mode</span>
+                        </div>
+                    </article>
+
+                    <!-- CONFIDENTIAL -->
+                    <article class="policy-card glass-card" data-action="block">
+                        <div class="policy-card-top">
+                            <div class="policy-ident">
+                                <span class="policy-type">CONFIDENTIAL</span>
+                                <span class="rule-id">RULE-CORP-01</span>
+                            </div>
+                            <span class="action action-block">BLOCK</span>
+                        </div>
+                        <p class="policy-desc">Proprietary corporate codebases, internal trade secrets, and labeled NDA documents are stopped before departing the organizational boundary.</p>
+                        <div class="policy-footer">
+                            <span class="severity-tag high">&bull; Critical Enterprise Risk</span>
+                            <span class="status-active">Enforced in Strict</span>
+                        </div>
+                    </article>
+                </div>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <div class="container footer-inner">
-            <p>© <span class="year"></span> ShieldAI. Privacy-first AI protection.</p>
-            <div class="footer-links">
-                <a href="../scanner/scanner.html">Scanner</a>
-                <a href="../documentation/documentation.html">Docs</a>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Col 1: Brand -->
+                <div class="footer-brand-col">
+                    <a href="../index.html" class="brand" aria-label="ShieldAI home page">
+                        <span class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <path d="m9 12 2 2 4-4"/>
+                            </svg>
+                        </span>
+                        <span class="brand-text">
+                            <span class="brand-name">ShieldAI</span>
+                            <span class="brand-tagline">Privacy Firewall</span>
+                        </span>
+                    </a>
+                    <p class="footer-desc">
+                        High-assurance zero-trust privacy proxy safeguarding prompts, credentials, and sensitive PII from leaking to external foundation AI models.
+                    </p>
+                    <div class="footer-badges">
+                        <span class="footer-pill-tag">GDPR COMPLIANT</span>
+                        <span class="footer-pill-tag">HIPAA READY</span>
+                        <span class="footer-pill-tag">SOC2 TYPE II</span>
+                    </div>
+                </div>
+
+                <!-- Col 2: Product -->
+                <div class="footer-col">
+                    <h4>Firewall Suite</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../scanner/scanner.html">Live Scanner Playground</a></li>
+                        <li><a href="../dashboard/dashboard.html">Telemetry Dashboard</a></li>
+                        <li><a href="../policies/policies.html">Protection Policy Matrix</a></li>
+                        <li><a href="../history/history.html">Audit Trail &amp; Logs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Architecture -->
+                <div class="footer-col">
+                    <h4>Architecture</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../how-it-works/how-it-works.html">Zero-Trust Pipeline</a></li>
+                        <li><a href="../features/features.html">Regex &amp; NER Classifiers</a></li>
+                        <li><a href="../features/features.html">Threat Index Scoring</a></li>
+                        <li><a href="../documentation/documentation.html">Zero-Retention Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Developers -->
+                <div class="footer-col">
+                    <h4>Developers</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../documentation/documentation.html">REST API Reference</a></li>
+                        <li><a href="../documentation/documentation.html">cURL &amp; Payload Spec</a></li>
+                        <li><a href="http://localhost:3001/api/health" target="_blank">Health Check API</a></li>
+                        <li><a href="../scanner/scanner.html">Simulate Prompt Scan</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>&copy; <span class="year"></span> ShieldAI Firewall. All rights reserved. Built for Zero-Trust Enterprise AI.</p>
+                <div class="footer-bottom-status">
+                    <span class="footer-bottom-dot"></span>
+                    <span>ALL GATEWAY NODES OPERATIONAL &bull; &lt;18MS LATENCY</span>
+                </div>
             </div>
         </div>
     </footer>

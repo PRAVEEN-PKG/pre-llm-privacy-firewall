@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History | ShieldAI</title>
-    <meta name="description" content="Review previous scans, risk findings, and sanitized outputs from the ShieldAI privacy firewall.">
+    <title>Audit History | ShieldAI Privacy Firewall</title>
+    <meta name="description" content="Review historical scans, risk findings, and sanitized outputs from the ShieldAI privacy firewall.">
     <link rel="stylesheet" href="../main.css">
     <link rel="stylesheet" href="history.css">
 </head>
@@ -12,12 +12,22 @@
     <header class="site-header">
         <nav class="navbar container">
             <a href="../index.html" class="brand" aria-label="ShieldAI home page">
-                <span class="brand-icon">🛡️</span>
+                <span class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </span>
                 <span class="brand-text">
                     <span class="brand-name">ShieldAI</span>
                     <span class="brand-tagline">Privacy Firewall</span>
                 </span>
             </a>
+
+            <div class="system-status">
+                <span class="status-indicator-dot"></span>
+                <span>GATEWAY ACTIVE &bull; 0 LEAKS</span>
+            </div>
 
             <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -31,48 +41,64 @@
                 <a href="../dashboard/dashboard.html" class="nav-link">Dashboard</a>
                 <a href="history.html" class="nav-link active">History</a>
                 <a href="../policies/policies.html" class="nav-link">Policies</a>
-                <a href="../documentation/documentation.html" class="nav-link">Documentation</a>
+                <a href="../documentation/documentation.html" class="nav-link">Docs</a>
             </div>
         </nav>
     </header>
 
     <main>
-        <section class="page-hero">
+        <section class="page-hero history-hero">
             <div class="container narrow">
-                <span class="eyebrow">Scan history</span>
-                <h1>Previous privacy checks and protection events</h1>
+                <span class="eyebrow">Security Audit Trail</span>
+                <h1>Prompt Inspection History</h1>
+                <p>Complete zero-leak telemetry log of previous prompt scans, detected PII entities, risk scores, and enforcement actions.</p>
             </div>
         </section>
 
         <section class="history-section">
             <div class="container">
+                <!-- Toolbar -->
                 <div class="toolbar glass-card">
-                    <input type="search" id="searchInput" placeholder="Search detected data types...">
-                    <select id="filterSelect">
-                        <option value="all">All risk levels</option>
-                        <option value="LOW">Low</option>
-                        <option value="MEDIUM">Medium</option>
-                        <option value="HIGH">High</option>
-                        <option value="CRITICAL">Critical</option>
-                    </select>
-                    <button id="clearHistoryBtn" class="secondary-btn" type="button">Clear History</button>
+                    <div class="search-input-wrap">
+                        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="search" id="searchInput" placeholder="Filter by detected data types (e.g. EMAIL, NAME, API_KEY)...">
+                    </div>
+
+                    <div class="filter-select-wrap">
+                        <select id="filterSelect">
+                            <option value="all">All Risk Levels</option>
+                            <option value="LOW">Low Risk</option>
+                            <option value="MEDIUM">Medium Risk</option>
+                            <option value="HIGH">High Risk</option>
+                            <option value="CRITICAL">Critical</option>
+                        </select>
+                    </div>
+
+                    <button id="clearHistoryBtn" class="clear-btn" type="button">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        Clear Audit Trail
+                    </button>
                 </div>
 
+                <!-- Table Card -->
                 <div class="table-wrap glass-card">
                     <table>
                         <thead>
                             <tr>
-                                <th>Time</th>
-                                <th>Prompt data</th>
-                                <th>Detected Data</th>
+                                <th>Timestamp</th>
+                                <th>Privacy Payload</th>
+                                <th>Detected Entities</th>
                                 <th>Risk Score</th>
-                                <th>Risk Level</th>
-                                <th>Action</th>
+                                <th>Threat Level</th>
+                                <th>Firewall Action</th>
                             </tr>
                         </thead>
                         <tbody id="historyTableBody">
                             <tr>
-                                <td colspan="6">No scan history yet.</td>
+                                <td colspan="6" class="empty-table-state">No scan history recorded yet. Run a prompt scan in the live scanner.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -82,11 +108,72 @@
     </main>
 
     <footer class="site-footer">
-        <div class="container footer-inner">
-            <p>© <span class="year"></span> ShieldAI. Privacy-first AI protection.</p>
-            <div class="footer-links">
-                <a href="../scanner/scanner.html">Scanner</a>
-                <a href="../documentation/documentation.html">Docs</a>
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Col 1: Brand -->
+                <div class="footer-brand-col">
+                    <a href="../index.html" class="brand" aria-label="ShieldAI home page">
+                        <span class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <path d="m9 12 2 2 4-4"/>
+                            </svg>
+                        </span>
+                        <span class="brand-text">
+                            <span class="brand-name">ShieldAI</span>
+                            <span class="brand-tagline">Privacy Firewall</span>
+                        </span>
+                    </a>
+                    <p class="footer-desc">
+                        High-assurance zero-trust privacy proxy safeguarding prompts, credentials, and sensitive PII from leaking to external foundation AI models.
+                    </p>
+                    <div class="footer-badges">
+                        <span class="footer-pill-tag">GDPR COMPLIANT</span>
+                        <span class="footer-pill-tag">HIPAA READY</span>
+                        <span class="footer-pill-tag">SOC2 TYPE II</span>
+                    </div>
+                </div>
+
+                <!-- Col 2: Product -->
+                <div class="footer-col">
+                    <h4>Firewall Suite</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../scanner/scanner.html">Live Scanner Playground</a></li>
+                        <li><a href="../dashboard/dashboard.html">Telemetry Dashboard</a></li>
+                        <li><a href="../policies/policies.html">Protection Policy Matrix</a></li>
+                        <li><a href="../history/history.html">Audit Trail &amp; Logs</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Architecture -->
+                <div class="footer-col">
+                    <h4>Architecture</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../how-it-works/how-it-works.html">Zero-Trust Pipeline</a></li>
+                        <li><a href="../features/features.html">Regex &amp; NER Classifiers</a></li>
+                        <li><a href="../features/features.html">Threat Index Scoring</a></li>
+                        <li><a href="../documentation/documentation.html">Zero-Retention Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Developers -->
+                <div class="footer-col">
+                    <h4>Developers</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="../documentation/documentation.html">REST API Reference</a></li>
+                        <li><a href="../documentation/documentation.html">cURL &amp; Payload Spec</a></li>
+                        <li><a href="http://localhost:3001/api/health" target="_blank">Health Check API</a></li>
+                        <li><a href="../scanner/scanner.html">Simulate Prompt Scan</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>&copy; <span class="year"></span> ShieldAI Firewall. All rights reserved. Built for Zero-Trust Enterprise AI.</p>
+                <div class="footer-bottom-status">
+                    <span class="footer-bottom-dot"></span>
+                    <span>ALL GATEWAY NODES OPERATIONAL &bull; &lt;18MS LATENCY</span>
+                </div>
             </div>
         </div>
     </footer>
