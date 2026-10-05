@@ -97,6 +97,11 @@
     background: linear-gradient(90deg, #ef4444, #fca5a5);
 }
 
+.bar.critical {
+    width: 0;
+    background: linear-gradient(90deg, #b91c1c, #ef4444);
+}
+
 .activity-list {
     list-style: none;
     display: grid;

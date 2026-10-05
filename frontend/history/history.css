@@ -96,6 +96,7 @@ td {
 .badge.low { background: rgba(34, 197, 94, 0.12); color: #86efac; }
 .badge.medium { background: rgba(245, 158, 11, 0.12); color: #fcd34d; }
 .badge.high { background: rgba(239, 68, 68, 0.12); color: #fca5a5; }
+.badge.critical { background: rgba(185, 28, 28, 0.16); color: #fca5a5; }
 
 @media (max-width: 700px) {
     .toolbar {

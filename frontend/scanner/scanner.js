@@ -1,24 +1,4 @@
 const SCAN_API_URL = "http://localhost:3001/api/scan";
-const STORAGE_KEY = "shieldai-scan-history";
-
-function saveScanToHistory(result) {
-    const history = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    const detectedData = result.detections.map(function (detection) {
-        return detection.type + " (" + detection.action + ")";
-    });
-
-    history.unshift({
-        time: new Date().toISOString(),
-        prompt: "Prompt contents not stored",
-        detectedData: detectedData.join(", ") || "None",
-        riskScore: result.riskScore,
-        riskLevel: result.riskLevel,
-        action: detectedData.some(function (detection) {
-            return detection.endsWith("(REDACT)");
-        }) ? "MASKED" : "SAFE"
-    });
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(history.slice(0, 50)));
-}
 
 document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("promptInput");
@@ -40,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         detectedDataEl.textContent = detections.length
             ? detections.map(function (detection) {
-                return detection.type + ": " + detection.value + " (" + detection.action + ")";
+                return detection.type + " (" + detection.action + ")";
             }).join(", ")
             : "None";
         riskScoreEl.textContent = results.riskScore + "/100";
@@ -85,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             renderResults(result);
             try {
-                saveScanToHistory(result);
+                window.ShieldAIHistory.saveScan(result);
             } catch {
                 console.warn("Scan succeeded, but local scan history could not be updated.");
             }

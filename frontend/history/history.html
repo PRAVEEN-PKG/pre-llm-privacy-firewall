@@ -47,12 +47,13 @@
         <section class="history-section">
             <div class="container">
                 <div class="toolbar glass-card">
-                    <input type="search" id="searchInput" placeholder="Search prompts or data types...">
+                    <input type="search" id="searchInput" placeholder="Search detected data types...">
                     <select id="filterSelect">
                         <option value="all">All risk levels</option>
                         <option value="LOW">Low</option>
                         <option value="MEDIUM">Medium</option>
                         <option value="HIGH">High</option>
+                        <option value="CRITICAL">Critical</option>
                     </select>
                     <button id="clearHistoryBtn" class="secondary-btn" type="button">Clear History</button>
                 </div>
@@ -62,7 +63,7 @@
                         <thead>
                             <tr>
                                 <th>Time</th>
-                                <th>Prompt</th>
+                                <th>Prompt data</th>
                                 <th>Detected Data</th>
                                 <th>Risk Score</th>
                                 <th>Risk Level</th>
@@ -91,6 +92,7 @@
     </footer>
 
     <script src="../main.js"></script>
+    <script src="../history-store.js"></script>
     <script src="history.js"></script>
 </body>
 </html>

@@ -1,28 +1,42 @@
-const STORAGE_KEY = "shieldai-scan-history";
-
-function getHistory() {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-}
-
 function renderHistory(list) {
     const tbody = document.getElementById("historyTableBody");
+    tbody.replaceChildren();
 
     if (!list.length) {
-        tbody.innerHTML = "<tr><td colspan='6'>No scan history available.</td></tr>";
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 6;
+        cell.textContent = "No scan history available.";
+        row.appendChild(cell);
+        tbody.appendChild(row);
         return;
     }
 
-    tbody.innerHTML = list.map(function (item) {
-        const badgeClass = (item.riskLevel || "LOW").toLowerCase();
-        return "<tr>" +
-            "<td>" + new Date(item.time).toLocaleString() + "</td>" +
-            "<td>" + (item.prompt || "-") + "</td>" +
-            "<td>" + (item.detectedData || "None") + "</td>" +
-            "<td>" + (item.riskScore || 0) + "/100</td>" +
-            "<td><span class='badge " + badgeClass + "'>" + (item.riskLevel || "LOW") + "</span></td>" +
-            "<td>" + (item.action || "SAFE") + "</td>" +
-            "</tr>";
-    }).join("");
+    list.forEach(function (item) {
+        const row = document.createElement("tr");
+        const values = [
+            item.time ? new Date(item.time).toLocaleString() : "-",
+            "Prompt contents not stored",
+            item.detectedData,
+            item.riskScore + "/100",
+            item.riskLevel,
+            item.action
+        ];
+
+        values.forEach(function (value, index) {
+            const cell = document.createElement("td");
+            if (index === 4) {
+                const badge = document.createElement("span");
+                badge.classList.add("badge", item.riskLevel.toLowerCase());
+                badge.textContent = value;
+                cell.appendChild(badge);
+            } else {
+                cell.textContent = value;
+            }
+            row.appendChild(cell);
+        });
+        tbody.appendChild(row);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -33,8 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
     function applyFilters() {
         const text = (searchInput.value || "").toLowerCase();
         const level = filterSelect.value;
-        const items = getHistory().filter(function (item) {
-            const matchesText = !text || item.prompt.toLowerCase().includes(text) || (item.detectedData || "").toLowerCase().includes(text);
+        const items = window.ShieldAIHistory.getSafeHistory().filter(function (item) {
+            const matchesText = !text || item.detectedData.toLowerCase().includes(text);
             const matchesLevel = level === "all" || (item.riskLevel || "LOW") === level;
             return matchesText && matchesLevel;
         });
@@ -44,9 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
     searchInput.addEventListener("input", applyFilters);
     filterSelect.addEventListener("change", applyFilters);
     clearHistoryBtn.addEventListener("click", function () {
-        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem("shieldai-scan-history");
         renderHistory([]);
     });
 
-    renderHistory(getHistory());
+    renderHistory(window.ShieldAIHistory.getSafeHistory());
 });
