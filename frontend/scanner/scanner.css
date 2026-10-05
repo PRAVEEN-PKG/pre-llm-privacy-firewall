@@ -52,6 +52,28 @@
     border-color: rgba(56, 189, 248, 0.5);
 }
 
+.policy-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 18px;
+    color: #cbd5e1;
+}
+
+#policySelect {
+    min-height: 42px;
+    padding: 0 14px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 10px;
+    background: rgba(2, 6, 23, 0.7);
+    color: #f8fafc;
+}
+
+#policySelect:focus {
+    outline: 2px solid rgba(56, 189, 248, 0.4);
+    border-color: rgba(56, 189, 248, 0.5);
+}
+
 .action-row {
     display: flex;
     gap: 16px;

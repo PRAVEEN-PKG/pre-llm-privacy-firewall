@@ -1,63 +1,28 @@
+const SCAN_API_URL = "http://localhost:3001/api/scan";
 const STORAGE_KEY = "shieldai-scan-history";
 
-function detectSensitiveData(prompt) {
-    const results = [];
+function saveScanToHistory(result) {
+    const history = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    const detectedData = result.detections.map(function (detection) {
+        return detection.type + " (" + detection.action + ")";
+    });
 
-    if (/(?:my name is|i am|name is)\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+/i.test(prompt)) {
-        results.push("NAME");
-    }
-
-    if (/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i.test(prompt)) {
-        results.push("EMAIL");
-    }
-
-    if (/(?:phone|mobile|contact).*\b\d{10}\b/i.test(prompt)) {
-        results.push("PHONE");
-    }
-
-    if (/\b(?:password|pwd|secret|api[_ -]?key)\b[:=]?\s*[A-Za-z0-9._-]+/i.test(prompt)) {
-        results.push("API KEY");
-    }
-
-    return results;
-}
-
-function computeRiskScore(detectedData) {
-    const count = detectedData.length;
-    if (count === 0) return 0;
-    return Math.min(100, count * 22 + 10);
-}
-
-function computeRiskLevel(score) {
-    if (score >= 70) return "HIGH";
-    if (score >= 35) return "MEDIUM";
-    return "LOW";
-}
-
-function sanitizePrompt(prompt, detectedData) {
-    let safePrompt = prompt;
-
-    const nameMatch = safePrompt.match(/(?:my name is|i am|name is)\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+/i);
-    if (nameMatch && detectedData.includes("NAME")) {
-        safePrompt = safePrompt.replace(nameMatch[0], "My name is [NAME]");
-    }
-
-    const emailMatch = safePrompt.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
-    if (emailMatch && detectedData.includes("EMAIL")) {
-        safePrompt = safePrompt.replace(emailMatch[0], "[EMAIL]");
-    }
-
-    return safePrompt;
-}
-
-function saveScanToHistory(entry) {
-    const current = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    current.unshift(entry);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(current.slice(0, 50)));
+    history.unshift({
+        time: new Date().toISOString(),
+        prompt: "Prompt contents not stored",
+        detectedData: detectedData.join(", ") || "None",
+        riskScore: result.riskScore,
+        riskLevel: result.riskLevel,
+        action: detectedData.some(function (detection) {
+            return detection.endsWith("(REDACT)");
+        }) ? "MASKED" : "SAFE"
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(history.slice(0, 50)));
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("promptInput");
+    const policySelect = document.getElementById("policySelect");
     const scanBtn = document.getElementById("scanBtn");
     const clearBtn = document.getElementById("clearBtn");
 
@@ -68,48 +33,82 @@ document.addEventListener("DOMContentLoaded", function () {
     const safePromptEl = document.getElementById("safePrompt");
 
     function renderResults(results) {
-        const detectedData = Array.from(new Set(results.detectedData));
-        const riskScore = results.riskScore;
-        const riskLevel = results.riskLevel;
-        const action = riskScore > 0 ? "MASKED" : "SAFE";
+        const detections = results.detections || [];
+        const redacted = detections.some(function (detection) {
+            return detection.action === "REDACT";
+        });
 
-        detectedDataEl.textContent = detectedData.length ? detectedData.join(", ") : "None";
-        riskScoreEl.textContent = riskScore + "/100";
-        riskLevelEl.textContent = riskLevel;
-        riskActionEl.textContent = action;
-        safePromptEl.textContent = results.safePrompt;
+        detectedDataEl.textContent = detections.length
+            ? detections.map(function (detection) {
+                return detection.type + ": " + detection.value + " (" + detection.action + ")";
+            }).join(", ")
+            : "None";
+        riskScoreEl.textContent = results.riskScore + "/100";
+        riskLevelEl.textContent = results.riskLevel;
+        riskActionEl.textContent = redacted ? "REDACTED" : "SAFE";
+        safePromptEl.textContent = results.protectedText;
 
-        riskLevelEl.style.color = riskLevel === "HIGH" ? "#fca5a5" : riskLevel === "MEDIUM" ? "#fcd34d" : "#86efac";
-        riskActionEl.style.color = action === "MASKED" ? "#fcd34d" : "#86efac";
+        riskLevelEl.style.color = results.riskLevel === "CRITICAL" || results.riskLevel === "HIGH"
+            ? "#fca5a5"
+            : results.riskLevel === "MEDIUM" ? "#fcd34d" : "#86efac";
+        riskActionEl.style.color = redacted ? "#fcd34d" : "#86efac";
     }
 
-    scanBtn.addEventListener("click", function () {
-        const prompt = input.value.trim();
+    scanBtn.addEventListener("click", async function () {
+        const text = input.value.trim();
 
-        if (!prompt) {
-            renderResults({ detectedData: [], riskScore: 0, riskLevel: "LOW", safePrompt: "Please enter a prompt to scan." });
+        if (!text) {
+            safePromptEl.textContent = "Please enter a prompt to scan.";
             return;
         }
 
-        const detectedData = detectSensitiveData(prompt);
-        const riskScore = computeRiskScore(detectedData);
-        const riskLevel = computeRiskLevel(riskScore);
-        const safePrompt = sanitizePrompt(prompt, detectedData);
+        scanBtn.disabled = true;
+        clearBtn.disabled = true;
+        policySelect.disabled = true;
+        scanBtn.textContent = "Scanning...";
+        safePromptEl.textContent = "Scanning prompt...";
 
-        renderResults({ detectedData, riskScore, riskLevel, safePrompt });
+        try {
+            const response = await fetch(SCAN_API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    text: text,
+                    policy: policySelect.value
+                })
+            });
+            const result = await response.json();
 
-        saveScanToHistory({
-            time: new Date().toISOString(),
-            prompt: prompt,
-            detectedData: detectedData.join(", ") || "None",
-            riskScore: riskScore,
-            riskLevel: riskLevel,
-            action: riskLevel === "LOW" ? "SAFE" : "MASKED"
-        });
+            if (!response.ok || !result.success) {
+                throw new Error(result.error || "The scan request failed.");
+            }
+
+            renderResults(result);
+            try {
+                saveScanToHistory(result);
+            } catch {
+                console.warn("Scan succeeded, but local scan history could not be updated.");
+            }
+        } catch (error) {
+            safePromptEl.textContent = error.message === "Failed to fetch"
+                ? "Could not connect to the backend. Make sure it is running at http://localhost:3001."
+                : error.message;
+        } finally {
+            scanBtn.disabled = false;
+            clearBtn.disabled = false;
+            policySelect.disabled = false;
+            scanBtn.textContent = "Scan & Protect";
+        }
     });
 
     clearBtn.addEventListener("click", function () {
         input.value = "";
-        renderResults({ detectedData: [], riskScore: 0, riskLevel: "LOW", safePrompt: "No input scanned yet." });
+        detectedDataEl.textContent = "None";
+        riskScoreEl.textContent = "0/100";
+        riskLevelEl.textContent = "LOW";
+        riskLevelEl.style.color = "#86efac";
+        riskActionEl.textContent = "SAFE";
+        riskActionEl.style.color = "#86efac";
+        safePromptEl.textContent = "No input scanned yet.";
     });
 });
