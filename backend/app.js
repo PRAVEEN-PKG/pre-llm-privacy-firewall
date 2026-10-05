@@ -30,11 +30,15 @@ app.use((req, res) => {
 app.use((error, req, res, next) => {
   if (res.headersSent) return next(error);
 
+  if (error.type === 'entity.too.large') {
+    return res.status(413).json({ success: false, error: 'Request body too large' });
+  }
+
   if (error instanceof SyntaxError && error.status === 400 && 'body' in error) {
     return res.status(400).json({ success: false, error: 'Request body must contain valid JSON.' });
   }
 
-  console.error('Request failed:', error);
+  console.error('Request failed.');
   return res.status(500).json({ success: false, error: 'Internal server error.' });
 });
 
@@ -43,8 +47,8 @@ async function start() {
     try {
       await mongoose.connect(process.env.MONGODB_URI);
       console.log('Connected to MongoDB.');
-    } catch (error) {
-      console.error('MongoDB connection failed; using in-memory scan history:', error.message);
+    } catch {
+      console.error('MongoDB connection failed; using in-memory scan history.');
     }
   } else {
     console.log('MONGODB_URI is not set; using in-memory scan history.');
@@ -57,9 +61,11 @@ async function start() {
 
 if (require.main === module) {
   start().catch((error) => {
-    console.error('Failed to start the API:', error);
+    console.error('Failed to start the API.');
     process.exitCode = 1;
   });
 }
 
-module.exports = { app, start };
+module.exports = app;
+module.exports.app = app;
+module.exports.start = start;
